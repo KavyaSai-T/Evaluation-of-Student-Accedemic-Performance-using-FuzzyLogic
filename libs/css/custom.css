@@ -1,0 +1,237 @@
+.loginpage .container
+{
+	width:40%;
+	margin:200px auto;
+}
+.loginpage .card
+{
+	padding: 30px 0;
+}
+.loginpage .alert-danger
+{
+	width:95%;
+	margin:0 auto;
+}
+/*.form_page
+{
+	width: 70%;
+}*/
+.parent-container{
+  height:auto;
+}
+
+.hidden_value
+{
+  display: none !important;
+}
+label[for~="id_school_id"]
+{
+	display: none !important;
+}
+.tablinks{
+	cursor: pointer;
+}
+.tab-content{
+	z-index: 999999 !important;
+}
+input:focus
+{
+	border: 1px solid #5969ff !important;
+}
+.pull-right
+{
+	float: right;
+	margin-top: 20px;
+	width: 250px;
+	font-size:18px;
+}
+.table-responsive tr, .table-responsive td
+{
+	text-align: center !important;
+}
+.table-responsive th
+{
+	background: #21ae41 !important;
+	color: #FFF !important;
+	border-left: none !important;
+}
+.table-responsive tbody
+{
+	background: #DDD !important;
+}
+.bg_blue {
+    background-color: #139FD7 !important; 
+}
+.dashboard-header .navbar
+{
+	border: none !important;
+}
+.navbar-brand
+{
+	color: #FFF;
+}
+.navbar-brand:hover
+{
+	color: #0e0c28;
+}
+.nav-user-info
+{
+	background-color:#2e2f39;
+}
+.error
+{
+	color: red;
+}
+.errorlist li
+{
+	color: red;
+	list-style: none;
+	padding: 0;
+}
+.errorlist
+{
+	padding: 0;
+    margin: 0;
+}
+.nav-link:hover
+{
+	background-color: #139FD7 !important;
+	margin:0 !important;
+}
+.nav-link:hover i
+{
+	color: #FFF !important;
+}
+.nav-left-sidebar .navbar
+{
+	padding: 0 !important;
+}
+.pull_left_marks
+{
+	float: left;
+	width: 50px !important;
+	margin-right: 10px;
+
+}
+.sub_name
+{
+	width:50%;
+	margin:0 auto;
+	font-size: 16px;
+}
+.subject_name
+{
+	padding-bottom: 50px;
+}
+.pull-right-mark
+{
+	float: right;
+	margin-top: 20px;
+}
+.pull_right_tot
+{
+	float: right;
+	margin:50px 20px 0 0;
+}
+.pull_right_total
+{
+	float: right;
+}
+.pull_left_total
+{
+	float: left;
+}
+.pull_right_total h3
+{
+	margin: 10px 10px 0 0;
+	text-transform:uppercase;
+}
+#sub_order
+{
+	margin:50px  0 10px 0;
+	width: 80%;
+}
+#sub_order .list-group-item
+{
+	background: #DDD;
+}
+#padding
+{
+	margin-top: 40px;
+	padding:0 0 20px 20px;
+}
+#padding form
+{
+	width:100%;
+}
+#padding li
+{
+	color: #000;
+}
+#padding .active
+{
+	color: #FFF;
+}
+.msg
+{
+	margin:30px 0;
+}
+.highcharts-credits, .highcharts-axis-title tspan
+{
+	display: none !important;
+}
+.relative
+{
+	position: relative;
+}
+.fix_excel
+{
+	position:absolute;
+	top: 0;
+	right: 150px;
+}
+.page-item.active .page-link {
+   
+    background-color: #28a745 ;
+    border-color:#28a745;
+}
+#excel_student
+{
+	width:50%;
+	float: left;
+}
+#student_right
+{
+	float: left;
+	margin-left: 20px;
+}
+.clear
+{
+	clear: both;
+}
+.import_student_details
+{
+	margin-left:10px;
+	margin-top: 20px;
+}
+.import_student_section
+{
+	margin-left: 20px;
+	margin-top: 20px;
+}
+.Student_sectionform label
+{
+	text-align: left !important;
+}
+.import_student_section #excel_student
+{
+	width:67%;
+}
+#margin_std
+{
+	margin:20px 30px 0 0;
+}
+#search_stud_mark_details
+{
+	margin:20px 0 0 20px;
+}
