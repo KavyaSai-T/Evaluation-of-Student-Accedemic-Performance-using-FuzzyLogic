@@ -1,0 +1,42 @@
+{% include 'header.html' %}
+	{% if request.session.username %}
+
+	<div class="row">
+                       
+                <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header">Class & Section</h5>
+                         {% if messages %}
+                                {% for msg in messages %}
+                                    <div class="alert alert-success">{{msg}}</div>
+                                {% endfor %}
+                            {% endif %}
+                        <div class="card-body"><h5>Edit Class & Section</h5>
+                            <form method="Post" >{% csrf_token %}
+                                <input type="hidden" name="school_id" value="{{request.session.schoolname}}">
+                                {% for i in post %}
+	                                <div class="form-group">
+	                                    <label>Class Name</label>
+	                                    <input  type="text" name="class_name"  class="form-control"  value="{{i.class_name}}">
+	                                </div>
+                                {% endfor %}
+                                <div class="form-group">
+                                        <label>Section Name</label>
+                                        <input  type="text" name="section_name"  class="form-control">
+                                    </div>
+                                <div class="row">
+                                    <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0"></div>
+                                    <div class="col-sm-6 pl-0">
+                                        <p class="text-right">
+                                            <button type="submit" class="btn btn-space btn-primary">Update Class</button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+         </div>
+
+	{% endif %}
+{% include 'footer.html' %}

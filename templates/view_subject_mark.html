@@ -1,0 +1,47 @@
+{% if request.session.username %}
+{% include 'header.html' %}
+{% elif request.session.student %}
+{% include 'student_header.html' %}
+{% else %}
+{% include 'teacher_header.html' %}
+{% endif %}
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card">
+                <h5 class="card-header">{% for i in exam_name %} {{i.exams}} {% endfor %} Mark Details</h5>
+             
+              
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered first">
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Subject Name</th>
+                                    <th>Mark Type</th>
+                                    <th>Mark</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            	{% for i in marks %}
+	                                <tr>
+	                                    <td>{{forloop.counter}}</td>
+                                        <td>{{i.0}}</td>
+	                                    <td>{{i.2}}</td>
+										<td>{{i.1}}</td>
+	                                   
+	                                </tr>
+                                     {% empty %}
+                                    <tr>
+                                        <td colspan="8" class="text-center bg-primary">No Mark</td>
+                                    </tr>
+	                            {% endfor %}
+                            </tbody>
+                        </table>
+						<h3 style="text-align:right;padding-top:20px;color:green;font-size:20px;">Average Mark: {% for i in row %} {{i.0}} {% endfor %}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+{% include 'footer.html' %}

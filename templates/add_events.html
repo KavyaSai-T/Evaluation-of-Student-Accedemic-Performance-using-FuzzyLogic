@@ -1,0 +1,97 @@
+{% load static %}
+{% include 'header.html' %}
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header">Add Subject</h5>
+                        <div class="card-body">
+                            {% if messages %}
+                                {% for msg in messages %}
+                                    <div class="alert alert-success">{{msg}}</div>
+                                {% endfor %}
+                            {% endif %}
+                            <form id="post-form" method="Post">{% csrf_token %}
+                               
+                                <div class="form-group">
+                                    <label>Event Name</label>
+                                 <input type="text" name="name" class="form-control">
+
+                                </div>
+                                 <div class="form-group">
+                                    <label>Date</label>
+                                  <input type="date" name="date" class="form-control">
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Time</label>
+                                  <input type="text" name="time" class="form-control">
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Description</label>
+                                  <textarea name="desc" class="form-control"></textarea>
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Address</label>
+                                  <textarea name="addr" class="form-control"></textarea>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0"></div>
+                                    <div class="col-sm-6 pl-0">
+                                        <p class="text-right">
+                                            <button  id="add_subject_form" class="btn btn-space btn-primary">Create Event</button>  
+                                            <button class="btn btn-space btn-secondary">Cancel</button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="posts">
+                </div>
+               <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header">Event Details</h5>
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">S.No</th>
+                                        <th scope="col">Event Name</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Time</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Address</th>
+                                        <th scope="col">Option</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for rows in row %}
+                                        <tr>
+                                            <th scope="row">{{forloop.counter}}</th>
+                                            <td>{{rows.event_name}}</td>
+                                            <td>{{rows.date}}</td>
+                                            <td>{{rows.time}}</td>
+                                            <td>{{rows.desc}}</td>
+                                            <td>{{rows.address}}</td>
+                                             <td> <a href="{% url 'delete_event' pk=rows.id %}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure want to delete?')"><i class="fas fa-trash"></i></a></td>
+                                        </tr>
+                                        {% empty %}
+                                        <tr>
+                                            <td colspan="8" class="text-center bg-primary">No Event Detail</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+ 
+{% include 'footer.html' %}  
+              

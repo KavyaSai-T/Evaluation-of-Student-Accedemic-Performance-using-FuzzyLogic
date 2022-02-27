@@ -1,0 +1,23 @@
+{% include 'teacher_header.html' %}
+	{% if request.session.teacher %}
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card">
+                <h5 class="card-header">Select Exam</h5>
+                
+                <div class="card-body">
+	                                    
+        			{% for items in exams %}
+               
+                        <a href="{% url 'add_student_marks' cls_id=items.class_id_id sec_id=items.section_id_id exam_id=items.exam_id %}" class="btn btn-primary "><i class=" fas fa-book"></i> {{items.exams}}</a>
+
+                       	{% empty %} 
+                       	<h2> No Exams for the class </h2>
+                  	{% endfor %}
+	                              
+                    </div>
+                </div>
+            </div>
+        </div>
+
+	{% endif %}
+{% include 'footer.html' %}

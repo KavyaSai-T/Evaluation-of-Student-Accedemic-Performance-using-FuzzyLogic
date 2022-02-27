@@ -1,0 +1,143 @@
+{% load static %}
+{% include 'header.html' %}
+		{% if request.session.username %}
+		
+			<div class="form_page">
+				<div class="card">
+		            <h5 class="card-header">Assign Subject To Teachers</h5>
+		            
+		            <div class="card-body">
+						<form id="post-form2" method="Post">{% csrf_token %}
+			                <div class="form-group row">
+			                    <label class="col-3 col-lg-2 col-form-label text-right">Teacher</label>
+			                    <div class="col-9 col-lg-10">
+			                        <select name="staff_id" id="id_staff_id" class="form-control" required="required">
+			                        	<option value="">Select</option>
+			                        	{% for teachers in teacher %}
+			                        	<option value="{{teachers.staff_id}}">{{teachers.staff_name}}</option>
+			                        	{% endfor %}
+			                        </select>
+			                    </div>
+			                    {{form.staff_id.errors}}
+			                </div>
+			                        <input type="hidden" name="academic_year" id="id_academic_year" value="{{request.session.academic_year}}" class="form-control"  required="required"> 
+
+								<div class='container parent-container' id="assign_calss_teacher">
+									
+									<div class='form-row'>
+										<div class='col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2'>
+											<label for='validationCustom03'>Class</label>
+											  <select name="class_id" id="id_class_id" class="form-control"  required="required">
+					                        	<option value="">Select</option>
+					                        	{% for classname in class_id %}
+					                        	<option value="{{classname.class_id}}">{{classname.class_name}}</option>
+					                        	{% endfor %}
+					                        </select>
+										</div>{{form.class_id.errors}}<div class='col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2'>
+											<label>Section</label>
+											<select name="section_id" id="id_section_id" class="form-control"  required="required">
+					                        	<option value=0>Select</option>
+					                        	<option value=0>No Section</option>
+					                        </select>
+										</div>
+										{{form.section_id.errors}}
+										<div class='col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2'>
+											<label >Subject</label>
+											<select name="subject_id" id="id_subject_id" class="form-control"  required="required">
+					                        	<option value=0>Select</option>
+					                        	<option value=0>No Subject</option>
+					                        </select>
+			                       			 {{form.subject_id.errors}}
+										</div>
+										<div class='col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2'>
+											<label for='ClassTeacher'>Class Teacher</label>
+											<br>
+											<label class='custom-control custom-radio custom-control-inline'>
+												<input type='radio' name='is_class_teacher' value="yes" class='custom-control-input'><span class='custom-control-label'>Yes</span></label>
+												<label class='custom-control custom-radio custom-control-inline'><input type='radio' name='is_class_teacher'  class='custom-control-input' value="no" checked="checked"><span class='custom-control-label' >No</span></label>
+										</div></div></div>
+			               
+				            
+
+			                <div class="row pt-2 pt-sm-5 mt-1">
+			                    <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0">
+			                        
+			                    </div>
+			                    <div class="col-sm-6 pl-0">
+			                        <p class="text-right">
+			                            <input type="submit" class="btn btn-space btn-primary" value="Submit">
+			                            <input type="reset" class="btn btn-space btn-secondary" value="Cancel">
+			                        </p>
+			                    </div>
+			                </div>
+			            </form>
+	           </div>
+	         </div>
+	      </div>
+		{% endif %}
+{% include 'footer.html' %}  
+ <script src="{% static 'assets/libs/js/custom.js' %}"></script>    
+<script type="text/javascript">
+    $.noConflict();
+    jQuery(document).ready(function(){
+    jQuery('#id_class_id').on('change', function() {
+    jQuery.ajax({
+        type:'POST',
+        url:'{% url "select_section" %}',
+        data: jQuery("#post-form2").serialize(),
+        success: function (data) {
+            var option_value="";
+            if(data['rowval'] !="") {
+	            for(i=0;i<data['rowval']['length'];i++)
+	            {
+
+	               section_id = data['rowval'][i][4];
+	               section_name = data['rowval'][i][5];
+	               option_value += '<option value=' + section_id + '>' + section_name + '</option>';
+	               
+
+	            }
+	            sec = '<option>Select</option>';
+	            jQuery('#id_section_id').html(sec+option_value);
+            }
+            else
+            {
+                sec = '<option>Select</option><option>No Section</option>';
+                jQuery('#id_section_id').html(sec);
+             
+            }
+           
+        }
+    });
+     });
+    jQuery('#id_section_id').on('change', function() {
+	    jQuery.ajax({
+	        type:'POST',
+	        url:'{% url "select_subject" %}',
+	        data: jQuery("#post-form2").serialize(),
+	        success: function (data) {
+	            var option_value="";
+	            if(data['subject'] !="") {
+		            for(i=0;i<data['subject']['length'];i++)
+		            {
+
+		               subject_id = data['subject'][i][8];
+		               subject_name = data['subject'][i][9];
+		               option_value += '<option value=' + subject_id + '>' + subject_name + '</option>';
+		               
+
+		            }
+		            sec = '<option>Select</option>';
+		            jQuery('#id_subject_id').html(sec+option_value);
+		        }
+		        else
+	            {
+	                sec = '<option>Select</option><option>No Subject</option>';
+	                jQuery('#id_section_id').html(sec);
+	             
+	            }
+	        }
+	    });
+     });
+    });
+</script>                   

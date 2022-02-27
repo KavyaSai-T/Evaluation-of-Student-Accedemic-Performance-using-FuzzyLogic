@@ -1,0 +1,77 @@
+{% load static %}
+{% include 'teacher_header.html' %}
+	{% if request.session.teacher %}
+
+		<div class="form_page">
+			<div class="card">
+	            <h5 class="card-header">
+		Add Student Diary</h5>
+	            <div class="card-body">
+	            	{% if messages %}
+						{% for message in messages %}
+							<div class="alert alert-success">{{message}}</div>
+						{% endfor %}
+					{% endif %}
+					<form id="form" data-parsley-validate="" novalidate="" method="Post" autocomplete="off">{% csrf_token %}
+						<div class="form-group row">
+				            <label  class="col-3 col-lg-2 col-form-label text-right">Subject</label>
+			                <div class="col-9 col-lg-10">
+		                       <select class="form-control" id="subject_id" name="subject_id_id">
+                                    <option>Select</option>
+                                    {% for row in subject%}
+                                    	<option value="{{row.subject_id_id}}">{{row.subject_id}}</option>
+                                    {% endfor %}
+                                </select>
+			                </div>
+				        </div>
+				        <div class="form-group row" style="margin-left: 16%;" >
+							<label class="custom-control custom-radio custom-control-inline">
+	                            <input  checked="" class="custom-control-input" id="homework_classwork" type="radio" name="homework_classwork" data-attr="all" value="0"><span class="custom-control-label" >Homework</span>
+	                        </label>
+	                        <label class="custom-control custom-radio custom-control-inline">
+	                            <input  class="custom-control-input" type="radio" id="homework_classwork" name="homework_classwork" data-attr="particular" value="1" ><span class="custom-control-label" >Classwork</span>
+	                        </label>
+	                    </div>
+	                    <div id="diary_student_name"></div>
+		                <div class="form-group row">
+		                    <label class="col-3 col-lg-2 col-form-label text-right">Assigned Date</label>
+		                    <div class="col-9 col-lg-10">
+		                        <input type="text" required="" data-parsley-type="text" name="assigned_date" id="assigned_date" class="form-control">
+		                    </div>
+		                </div>
+		                <div class="form-group row">
+		                    <label class="col-3 col-lg-2 col-form-label text-right">Diary Notes</label>
+		                    <div class="col-9 col-lg-10">
+								<textarea required="" class="form-control" name="diary_notes" required="required"></textarea>
+		                    </div>
+		                </div>
+		                <div class="row pt-2 pt-sm-5 mt-1">
+		                    <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0">
+
+		                    </div>
+		                    <div class="col-sm-6 pl-0">
+		                        <p class="text-right">
+		                            <input type="submit" class="btn btn-space btn-primary" value="Submit">
+		                            <input type="reset" class="btn btn-space btn-secondary" value="Cancel">
+		                        </p>
+		                    </div>
+		                </div>
+		            </form>
+           		</div>
+        	</div>
+      	</div>
+	{% endif %}
+{% include 'footer.html' %}
+<script src="{% static 'assets/vendor/datepicker/jquery.min.js' %}"></script>
+<script src="{% static 'assets/vendor/datepicker/jquery-ui.min.js' %}"></script>
+<script type="text/javascript">
+	$.noConflict();
+	jQuery(document).ready(function() {
+		jQuery("input[id$=assigned_date]").datepicker({ dateFormat: "dd-mm-yy"}).datepicker("setDate", new Date());
+        jQuery('input[id$=assigned_date]').datepicker({
+            onClose: function(dateText, inst) {
+                jQuery("#tbToSetFocus").focus();
+            }
+        });
+    });
+</script>

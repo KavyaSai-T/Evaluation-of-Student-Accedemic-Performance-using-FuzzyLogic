@@ -1,0 +1,135 @@
+{% include 'header.html' %}
+	{% if request.session.username %}
+		<div class="form_page">
+			<div class="card">
+	            <h3 class="card-header">Student Section</h3>
+	            <div class="text-right" id="margin_std">
+                    <a href="/media/excel/assign_student.xlsx" class="btn btn-success">Download Sample Excel</a>              
+                </div>
+	            <div class="card-body">
+					<form id="Student_sectionform"  method="Post" enctype="multipart/form-data" >{% csrf_token %}
+						
+		               <div class="form-group row">
+				            <label  class="col-3 col-lg-2 col-form-label ">Import Student Name</label>
+			                <div class="col-9 col-lg-10">
+                                <input type="file" name="excel_file" class="form-control"  required="required">
+                                <div id="error1"></div>
+			                </div>
+			             </div>
+				        <div class="form-group row">
+				            <label  class="col-3 col-lg-2 col-form-label ">Degree</label>
+			                <div class="col-9 col-lg-10">
+		                        <select class="form-control" name="class_id" id="student_section_class" required="required" >
+                                    <option value=0>Select</option>
+                                    {% for i in cls_name %}
+                                    	<option value="{{i.class_id}}">{{i.class_name}}</option>
+                                    {% endfor %}
+                                </select>
+			                </div>
+			                
+				        </div>
+				        <div class="form-group row">
+				            <label  class="col-3 col-lg-2 col-form-label ">Department</label>
+			                <div class="col-9 col-lg-10">
+		                       <select class="form-control" id="student_section_select_selection" name="section_id" required="required">
+                                    <option value=0>Select</option>
+                                    <option value=0>No Department</option>
+                                </select>
+                                <div id="error3"></div>
+			                </div>
+				        </div>
+		                <div class="row pt-2 pt-sm-5 mt-1" style="padding-top:10px !important;">
+		                    <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0">
+
+		                    </div>
+		                    <div class="col-sm-6 pl-0">
+		                        <p class="text-right">
+		                            <input type="submit" class="btn btn-space btn-primary" value="Submit" onclick="register_form()">
+		                            <input type="reset" class="btn btn-space btn-secondary" value="Cancel">
+		                        </p>
+		                    </div>
+		                </div>
+		            </form>
+           		</div>
+         	</div>
+	    </div>
+	{% endif %}
+<script type="text/javascript">
+	function register_form() {
+		var student_name = document.getElementById('student_section_student_id').value;
+		var class_name = document.getElementById('id_class_id').value;
+		var sec_name = document.getElementById('student_section_select_selection').value;
+		var year = document.getElementById('id_academic_year').value;
+
+		
+		if(student_name=="")
+		{
+			document.getElementById('error1').innerHTML="This Field is Required";
+			document.getElementById('error1').style.color="red";
+		}
+		else
+		{
+			document.getElementById('error1').innerHTML="";
+		}
+		if(class_name=="")
+		{
+			document.getElementById('error2').innerHTML="This Field is Required";
+			document.getElementById('error2').style.color="red";
+		}
+		else
+		{
+			document.getElementById('error2').innerHTML="";
+		}
+		if(sec_name=="")
+		{
+			document.getElementById('error3').innerHTML="This Field is Required";
+			document.getElementById('error3').style.color="red";
+		}
+		else
+		{
+			document.getElementById('error3').innerHTML="";
+		}
+		if(year=="")
+		{
+			document.getElementById('error4').innerHTML="This Field is Required";
+			document.getElementById('error4').style.color="red";
+		}
+		else
+		{
+			document.getElementById('error4').innerHTML="";
+		}
+		
+	}
+</script>
+{% include 'footer.html' %}
+
+<script type="text/javascript">
+    $.noConflict();
+    jQuery(document).ready(function(){
+    	
+	    jQuery('body').on('change', '#student_section_class', function() {
+	    	var option_value="<option>Select</option>";
+	    	var option_value1="<option>Select</option><option>No Section</option>";
+		    jQuery.ajax({
+		        type:'POST',
+		        url:'{% url "student_section_class_select" %}',
+		        data: jQuery("#Student_sectionform").serialize(),
+		        success: function (data) {
+		        	if(data['row']!="") {
+			            for(i=0;i<data['row']['length'];i++)
+			            {
+			               section_id = data['row'][i][4];
+			               section_name = data['row'][i][5];
+			               option_value += '<option value=' + section_id + '>' + section_name + '</option>';
+			            }
+			            jQuery('#student_section_select_selection').html(option_value);
+			        } else{
+			        	jQuery('#student_section_select_selection').html(option_value1);
+			        }
+		        }, error:function(){
+		        	jQuery('#student_section_select_selection').html(option_value);
+		        }
+		    });
+	    });
+    });
+</script>

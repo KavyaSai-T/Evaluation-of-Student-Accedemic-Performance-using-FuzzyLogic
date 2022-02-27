@@ -1,0 +1,108 @@
+{% include 'teacher_header.html' %}
+  {% if request.session.teacher %}
+
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+  <div class="section-block">
+    <h5 class="section-title">{% for i in exam %} {% if forloop.last %} {{i.exams}} Mark Chart {% endif %} {% endfor %}</h5>
+  </div>
+<div id="subject_mark">
+   <div class="card">
+    <div class="card-body">
+      <h5 class="card-header">Student Name:{% for i in student_name %} {{i.student_name}} {% endfor %}</h5>
+        <canvas id="chartjs_bar"></canvas>
+    </div>
+  </div>
+</div>
+<form method="post" id="post-form">{% csrf_token %}
+  <input type="hidden" name="exam_id"  id="ex_id" value="{{request.GET.exam_id}}" >
+  <input type="hidden" name="std_id"  id="std_id" value="{{request.GET.stud_id}}">
+</form>
+</div>
+{% endif %}
+{% include 'footer.html' %}
+<script type="text/javascript">
+  arr2 = [0];
+  arr3 = [100];
+  $.noConflict();
+    jQuery(document).ready(function(){
+        jQuery.ajax({
+        type:'POST',
+        url:'{% url "sub_ajax_search_mark" %}',
+        data: jQuery("#post-form").serialize(),
+        success: function (data) {
+          if(data['row']!="") {
+            var marks_value = new Array();
+            var arr = new Array();
+
+            color_value = ["rgba(255, 64, 123,0.5)","rgba(89, 105, 255,0.5)","rgba(40, 167, 69,0.5)","rgba(255, 193, 7,0.5)","rgba(23, 162, 184,0.5)","rgba(52, 58, 64,0.5)","rgba(253, 126, 20,0.5)"];
+            for(i=0;i<data['row']['length'];i++)
+            {
+              mark = data['row'][i][1];
+              subject_name = data['row'][i][0];
+              arr.push(subject_name);
+              marks_value.push(mark);
+
+            }
+            arr2 = [0];
+            arr3 = [100];
+             if ($('#chartjs_bar').length) {
+                          var ctx = document.getElementById("chartjs_bar").getContext('2d');
+                          var myChart = new Chart(ctx, {
+                              type: 'bar',
+                              data: {
+                                  labels:arr,
+                                  datasets: [{
+                                      label: '',
+                                      data:marks_value.concat(arr2,arr3),
+                                     backgroundColor: color_value,
+                                              borderColor: color_value,
+                                      borderWidth: 2
+                                  }]
+                              },
+                              options: {
+                                  scales: {
+                                      yAxes: [{
+
+                                      }]
+                                  },
+                                       legend: {
+                                  display: false,
+                                  position: 'bottom',
+
+                                  labels: {
+                                      fontColor: '#71748d',
+                                      fontFamily: 'Circular Std Book',
+                                      fontSize: 14,
+                                  }
+                              },
+
+                              scales: {
+                                  xAxes: [{
+                                      ticks: {
+                                          fontSize: 14,
+                                          fontFamily: 'Circular Std Book',
+                                          fontColor: '#71748d',
+                                      }
+                                  }],
+                                  yAxes: [{
+                                      ticks: {
+                                          fontSize: 14,
+                                          fontFamily: 'Circular Std Book',
+                                          fontColor: '#71748d',
+                                      }
+                                  }]
+                              }
+                          }
+
+                              
+                          });
+                      }
+              }
+              else
+            {
+              var mark = '<a href="{% url 'manage_students_marks' %}" class="btn btn-secondary">Add Mark Here</a>'
+              jQuery('#subject_mark').html("<h3 style='text-align:center;margin-top:150px '>No Marks Added for the Class " + mark + "</h3>");
+            }
+            }
+    }); });
+</script>

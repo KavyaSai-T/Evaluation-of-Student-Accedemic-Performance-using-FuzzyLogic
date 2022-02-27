@@ -1,0 +1,219 @@
+{% load static %}
+{% include 'header.html' %}
+        {% if request.session.username %}
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header">Add Subject</h5>
+                        <div class="card-body">
+                            {% if messages %}
+                                {% for msg in messages %}
+                                    <div class="alert alert-success">{{msg}}</div>
+                                {% endfor %}
+                            {% endif %}
+                            <form id="post-form" method="Post">{% csrf_token %}
+                                <input type="hidden" value="{{request.session.schoolname}}" id="id_school_id" name="school_id">
+                                <div class="form-group">
+                                    <label>Degree</label>
+                                    <select id="id_class_id" name="class_id" class="form-control">
+
+                                        <option value="">Select</option>
+                                        
+                                    </select>
+                                    {{form.class_id.errors}}
+                                </div>
+                                <div class="form-group">
+                                    <label>Department</label>
+                                    <div class="form-group">
+                                    <select id="id_section_id" name="section_id" class="form-control">
+
+                                        <option value="">Select</option>
+                                        <option value="">No Dept</option>
+                                    </select>
+                                </div>
+                                </div>
+								<div class="form-group">
+                                    <label>Exam</label>
+                                    <div class="form-group">
+                                    <select id="id_exam_id" name="exam_id" class="form-control">
+
+                                        <option value="">Select</option>
+                                        <option value="">No Exam</option>
+                                    </select>
+                                </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Subject Name</label>
+                                   <input type="text" name="subject_name" id="id_subject_name" required="required" placeholder="Ex: Maths, Science, English" class="form-control">
+                                   {{form.subject_name.errors}}
+
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0"></div>
+                                    <div class="col-sm-6 pl-0">
+                                        <p class="text-right">
+                                            <button  id="add_subject_form" class="btn btn-space btn-primary">Add Subject</button>  
+                                            <button class="btn btn-space btn-secondary">Cancel</button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="posts">
+                </div>
+               <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header">Subject List</h5>
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">S.No</th>
+                                        <th scope="col">Degree</th>
+                                        <th scope="col">Department</th>
+										<th scope="col">Exam</th>
+                                        <th scope="col">Subject</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for rows in row %}
+                                        <tr>
+                                            <th scope="row">{{forloop.counter}}</th>
+                                            <td>{{rows.class_id.class_name}}</td>
+                                            <td>{{rows.section_id.section_name}}</td>
+											<td>{{rows.exam_id.exams}}</td>
+                                            <td>{{rows.subject_name}}</td>
+											
+                                            <td><a href="{% url 'edit_subject' pk=rows.subject_id %}" class="btn btn-success btn-xs"><i class="fas fa-pencil-alt"></i></a> <a href="{% url 'delete_subject' pk=rows.subject_id %}" class="btn btn-danger btn-xs"><i class="fas fa-trash" onclick="return confirm('Are you sure want to delete?')"></i></a></td>
+                                        </tr>
+                                        {% empty %}
+                                        <tr>
+                                            <td colspan="8" class="text-center bg-primary">No Subject</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+{% if row.has_other_pages %}
+      <ul class="pagination" style="float: right;">
+        {% if row.has_previous %}
+          <li><a class="page-link" href="?page={{ row.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+          <li class="disabled page-item disabled"> <a class="page-link" href="#" tabindex="-1"><span>&laquo;</span></a></li>
+        {% endif %}
+        {% for i in row.paginator.page_range %}
+          {% if row.number == i %}
+            <li class="active page-item active"><a class="page-link" href="#"><span>{{ i }} <span class="sr-only">(current)</span></span></a></li>
+          {% else %}
+            <li class="page-item"><a  class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if row.has_next %}
+          <li  class="page-item"><a class="page-link" href="?page={{ row.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li class="disabled page-item disabled"><a class="page-link" href="#"><span>&raquo;</span></a></li>
+        {% endif %}
+      </ul>
+    {% endif %}          
+        {% endif %}
+ 
+{% include 'footer.html' %}  
+              
+<script src="{% static 'assets/libs/js/custom.js' %}"></script>
+
+<script type="text/javascript">
+    $.noConflict();
+    jQuery(document).ready(function(){
+
+        jQuery.ajax({
+        type:'POST',
+        url:'{% url "select_class" %}',
+        data: jQuery("#post-form").serialize(),
+        success: function (data) {
+
+            for(i=0;i<data['row']['length'];i++)
+            {
+
+               class_id = data['row'][i][0];
+               class_name = data['row'][i][1];
+               option_value = '<option value=' + class_id + '>' + class_name + '</option>';
+               
+                jQuery('#id_class_id').append(option_value);
+            }
+           
+            
+             console.log(data['row']);
+           
+        }
+    });
+
+    jQuery('#id_class_id').on('change', function() {
+    jQuery.ajax({
+        type:'POST',
+        url:'{% url "select_section" %}',
+        data: jQuery("#post-form").serialize(),
+        success: function (data) {
+            var op_val="";
+            if(data['rowval'] !="") {
+                for(i=0;i<data['rowval']['length'];i++)
+                {
+
+                   section_id = data['rowval'][i][4];
+                   section_name = data['rowval'][i][5];
+                   op_val += '<option value=' + section_id + '>' + section_name + '</option>';
+                   
+
+                }
+                sec = '<option>Select</option>';
+                jQuery('#id_section_id').html(sec+op_val);
+            }
+            else
+            {
+                sec = '<option>Select</option><option>No Section</option>';
+                jQuery('#id_section_id').html(sec);
+             
+            }
+           
+        }
+    });
+     });
+	  jQuery('#id_section_id').on('change', function() {
+    jQuery.ajax({
+        type:'POST',
+        url:'{% url "select_exam_college" %}',
+        data: jQuery("#post-form").serialize(),
+        success: function (data) {
+            var op_val="";
+            if(data['rowval'] !="") {
+                for(i=0;i<data['rowval']['length'];i++)
+                {
+
+                   section_id = data['rowval'][i][0];
+                   section_name = data['rowval'][i][1];
+                   op_val += '<option value=' + section_id + '>' + section_name + '</option>';
+                   
+
+                }
+                sec = '<option>Select</option>';
+                jQuery('#id_exam_id').html(sec+op_val);
+            }
+            else
+            {
+                sec = '<option>Select</option><option>No Exam</option>';
+                jQuery('#id_exam_id').html(sec);
+             
+            }
+           
+        }
+    });
+     });
+    });
+</script>      

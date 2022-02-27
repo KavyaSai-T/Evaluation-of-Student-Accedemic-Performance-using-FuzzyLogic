@@ -1,0 +1,4 @@
+{% include 'teacher_header.html' %}
+<div style="float: right;"><a href="{% url 'edit_students_mark' pk=student.register_number %}" class="btn btn-success btn-xs"><i class="fas fa-pencil-alt"></i> Marks</a> <a href="#" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure want to delete?');"><i class="fas fa-trash"></i> Marks</a></div>
+{% include 'footer.html' %}
+

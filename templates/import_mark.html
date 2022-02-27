@@ -1,0 +1,59 @@
+{% include 'teacher_header.html' %}
+
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    
+    <div class="card">
+        <h3 class="card-header">Import {% for i in ex_name %} {{i.exams}} {% endfor %} Marks</h3> 
+        <div id="padding">
+            {% if messages %}
+                {% for msg in messages %}
+                    <div class="alert alert-success col-xl-7">{{msg}} Click Here to {% for cls in val %} {% for i in ex_name %} <a href="{% url 'student_class_mark' class_id=cls.class_id_id section_id=cls.section_id exam_id=i.exam_id  %}" class="btn btn-secondary btn-xs" style="margin-left:10px;"> View Mark </a> </div>{% endfor %} {% endfor %}
+                {% endfor %}
+            {% endif %}
+            {% if cnt == 0 %}
+                    <h2>No Students Assigned for the Class.</h2>
+            {% else %}
+                <div class="relative">
+                    <form  method="post" enctype="multipart/form-data" >{% csrf_token %}
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+                                    <input type="file" name="excel_file" required="required" class="form-control">
+                                    {% for row in subject_name %}
+                                        <input type="hidden" name="sub_id[]" value="{{row.subject_id_id}}">
+                                    {% endfor %}
+                                    
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+                                <input type="submit" value="Upload Excel" class="btn btn-success">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="fix_excel">
+                    <form method="get" id="generate_excel" action="{% url 'export_subject_to_xlsx' %}">{% csrf_token %}
+                    {% for x in ex_name %}
+                        {% if forloop.last %}
+                            <input type="hidden" value="{{x.class_id_id}}" name="cls_id">
+                            <input type="hidden" value="{{x.section_id_id}}" name="sec_id">
+                            <input type="hidden" value="{{x.exam_id}}" name="exam_id">
+                            <input type="hidden" value="{{cnt}}" name="count_val">
+                            <input type="submit" value="Download Sample Excel" class="btn btn-primary">
+                        {% endif %}
+                    {% endfor %}
+                    </form>
+                    </div>
+                </div>
+                 <ul class="list-group" id="sub_order" >
+                    <li class="list-group-item active" style="background-color: #f0346e;
+                    border-color: #f0346e;">Import Excel Subject Order</li>
+                    {% for row in subject_name %}
+                        <li class="list-group-item">{{row.subject_id}} </li>
+                    {% endfor %}
+                </ul>  
+            </div>
+        {% endif %}
+        </div>
+      
+</div>
+
+
+{% include 'footer.html' %}

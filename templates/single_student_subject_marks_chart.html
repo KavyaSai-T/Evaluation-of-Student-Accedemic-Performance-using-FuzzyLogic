@@ -1,0 +1,72 @@
+{% include 'teacher_header.html' %}
+
+{% if lenth == 0 %}
+	<h3 style="text-align: center;margin-top: 150px;">No Marks Added for the student <a href="{% url 'manage_students_marks' %}" class="btn btn-secondary">Add Mark Here</a></h3>
+{% else %}
+<div class="card">
+    <h5 class="card-header">
+        {% for student in student_name %}
+            <div style="float: left;">{{student.student_name}} Subject Wise Marks Chart
+</div>
+            
+            <div style="clear: both;"></div>
+        {% endfor %}
+    </h5>
+    <div class="card-body">
+        <div id="c3chart_pie"></div>
+        
+    </div>
+    
+   
+</div>
+{% endif %}
+
+{% include 'footer.html' %}
+
+<script type="text/javascript">
+    $.noConflict();
+    jQuery(document).ready(function(){
+        var url = jQuery(location).attr('href'),
+        parts = url.split("/"),
+        last_part = parts[parts.length-2];
+        jQuery.ajax({
+            url:'{% url "ajax_subject_count" %}?ids='+last_part,
+            success: function (data) {
+                var len = data['row1'][0];
+                var array = new Array();
+                for(i=0;i<data['row']['length'];i++)
+                {
+                    var sub_name = data['row'][i][1];
+                    array.push(sub_name);
+
+
+                }
+                
+                if (jQuery('#c3chart_pie').length) {
+                        var chart = c3.generate({
+                            bindto: "#c3chart_pie",
+                            data: {
+                                columns: [
+                                    {% for entry in mark %}[array[ {{ forloop.counter0 }}],Math.round('{{entry.0}}'/len)]{% if not forloop.last %}, {% endif %}{% endfor %}
+                                ],
+                                type: 'pie',
+
+                                colors: {
+                                     data1: '#e83e8c',
+                                    data2: '#007bff'
+                                }
+                            },
+                            pie: {
+                                label: {
+                                    format: function(value, ratio, id) {
+                                        return d3.format('')(value) + ' % ';
+                                    }
+                                }
+                            }
+                        });
+                    }
+                    console.log(data['row']);
+            } 
+        });
+});
+</script>

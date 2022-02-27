@@ -1,0 +1,215 @@
+{% load static %}
+{% include 'header.html' %}
+		{% if request.session.username %}
+			<div class="form_page">
+				<div class="card">
+		            <h5 class="card-header">Update Student</h5>
+		            <div class="import_student_details">
+		             
+                    </div>
+		            <div class="card-body">
+						<form id="form" method="Post" enctype="multipart/form-data">{% csrf_token %}
+							{% if messages %}
+								{% for message in messages %}
+									<div class="alert alert-success">{{message}}</div>
+								{% endfor %}
+							{% endif %}
+							{% for i in detail %}
+							<input type="hidden" value="{{request.session.schoolname}}" name="school_id" id="id_school_id">
+							<div class="row">
+				                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Student Name</label>
+				                    <input type="text" class="form-control" name="student_name" value="{{i.student_name}}">
+				                    <div id="error1"></div>
+				                </div>
+				                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Register Number</label>
+									<input type="text" class="form-control" name="register_number" value="{{i.register_number}}">
+				                    <div id="error2"></div>
+				                </div>
+				            
+				            	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Admission Number</label>
+									<input type="text" class="form-control" name="admission_number" value="{{i.admission_number}}">
+				                    <div id="error3"></div>
+				                </div>
+				                
+				                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Adhar Number</label>
+									<input type="text" class="form-control" name="adhar_number" value="{{i.adhar_number}}">
+				               
+				                </div>
+				            
+				            	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Father Name</label>
+									<input type="text" class="form-control" name="father_name" value="{{i.father_name}}">
+				                </div>
+				                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Mother Name</label>
+									<input type="text" class="form-control" name="mother_name" value="{{i.mother_name}}">
+				                </div>
+				            
+				            	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Guardian Name</label>
+									<input type="text" class="form-control" name="guardian_name" value="{{i.guardian_name}}">
+				                </div>
+				                
+				                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Emergency Number</label>
+									<input type="text" class="form-control" name="emergency_number" value="{{i.emergency_number}}">
+				              
+				                    <div id="error5"></div>
+				                </div>
+				             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>No of Backlogs</label>
+									<input type="text" class="form-control" name="no_of_backlogs" value="{{i.no_of_backlogs}}">
+				              
+				                    <div id="error5"></div>
+				                </div>
+				            	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Father Occupation</label>
+									<input type="text" class="form-control" name="father_occupation" value="{{i.father_occupation}}">
+				                   			                </div>
+				                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Mother Occupation</label>
+									<input type="text" class="form-control" name="mother_occupation" value="{{i.mother_occupation}}">
+				                </div>
+				            
+				            	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Present Address</label>
+									<textarea  class="form-control" name="present_address">{{i.present_address}}</textarea>
+				                    
+				                </div>
+				                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Permanent Address</label>
+									<textarea  class="form-control" name="permanent_address">{{i.permanent_address}}</textarea>
+				                </div>
+				                
+				            	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Religion</label>
+									<input type="text" class="form-control" name="religion" value="{{i.religion}}">
+				            
+				                </div>
+				           
+				             	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Caste</label>
+									<input type="text" class="form-control" name="caste" value="{{i.caste}}">
+				                
+				                </div>
+				            	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Blood Group</label>
+									<input type="text" class="form-control" name="blood_group" value="{{i.blood_group}}">
+				           
+				                </div>
+				            </div>
+			                <div class="row pt-2 pt-sm-5 mt-1">
+			                    <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0">
+			                        
+			                    </div>
+			                    <div class="col-sm-6 pl-0">
+			                        <p class="text-right">
+			                            <input type="submit" class="btn btn-space btn-primary" value="Update Student" onclick="register_form()">
+			                            <input type="reset" class="btn btn-space btn-secondary" value="Cancel">
+			                        </p>
+			                    </div>
+			                </div>
+							{% endfor %}
+			            </form>
+	           </div>
+	         </div>
+	      </div>         
+		{% endif %}
+<script type="text/javascript">
+	function register_form() {
+		var student_name = document.getElementById('id_student_name').value;
+		var reg_no = document.getElementById('id_register_number').value;
+		var adm_no = document.getElementById('id_admission_number').value;
+		var dob = document.getElementById('id_date_of_birth').value;
+		var mob_no = document.getElementById('id_emergency_number').value;
+		var user_name = document.getElementById('id_username').value;
+		var psw = document.getElementById('id_password').value;
+		if(student_name=="")
+		{
+			document.getElementById('error1').innerHTML="This Field is Required";
+			document.getElementById('error1').style.color="red";
+		}
+		else
+		{
+			document.getElementById('error1').innerHTML="";
+		}
+		if(reg_no=="")
+		{
+			document.getElementById('error2').innerHTML="This Field is Required";
+			document.getElementById('error2').style.color="red";
+		}
+		else
+		{
+			document.getElementById('error2').innerHTML="";
+		}
+		if(adm_no=="")
+		{
+			document.getElementById('error3').innerHTML="This Field is Required";
+			document.getElementById('error3').style.color="red";
+		}
+		else
+		{
+			document.getElementById('error3').innerHTML="";
+		}
+		if(dob=="")
+		{
+			document.getElementById('error4').innerHTML="This Field is Required";
+			document.getElementById('error4').style.color="red";
+		}
+		else
+		{
+			document.getElementById('error4').innerHTML="";
+		}
+		if(mob_no=="")
+		{
+			document.getElementById('error5').innerHTML="This Field is Required";
+			document.getElementById('error5').style.color="red";
+		}
+		else
+		{
+			document.getElementById('error5').innerHTML="";
+		}
+		if(user_name=="")
+		{
+			document.getElementById('error6').innerHTML="This Field is Required";
+			document.getElementById('error6').style.color="red";
+		}
+		else
+		{
+			document.getElementById('error6').innerHTML="";
+		}
+		if(psw=="")
+		{
+			document.getElementById('error7').innerHTML="This Field is Required";
+			document.getElementById('error7').style.color="red";
+		}
+		else
+		{
+			document.getElementById('error7').innerHTML="";
+		}
+	}
+</script>
+{% include 'footer.html' %}  
+<script src="{% static 'assets/vendor/datepicker/jquery.min.js' %}"></script>
+<script src="{% static 'assets/vendor/datepicker/jquery-ui.min.js' %}"></script>
+<script type="text/javascript">
+	$.noConflict();
+	jQuery(document).ready(function() {
+		jQuery("input[id$=id_date_of_birth]").datepicker({ dateFormat: "yy-mm-dd"});
+        jQuery('input[id$=id_date_of_birth]').datepicker({
+            onClose: function(dateText, inst) {
+                jQuery("#id_adhar_number").focus();
+            }
+        });
+        jQuery("input[id$=id_date_of_admission]").datepicker({ dateFormat: "yy-mm-dd"});
+        jQuery('input[id$=id_date_of_admission]').datepicker({
+            onClose: function(dateText, inst) {
+                jQuery("#id_date_of_birth").focus();
+            }
+        });
+    });
+</script>

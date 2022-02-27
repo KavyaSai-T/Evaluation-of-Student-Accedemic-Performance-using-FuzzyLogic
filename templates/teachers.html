@@ -1,0 +1,66 @@
+{% include 'header.html' %}
+{% if request.session.username %}
+	<div class="card">
+		<h5 class="card-header">View Teacher</h5>
+			{% if messages %}
+				{% for message in messages %}
+					<div class="alert alert-success">{{message}}</div>
+				{% endfor %}
+			{% endif %}
+		<div class="card-body">
+		    <div class="table-responsive">
+		        <table class="table table-striped table-bordered first">
+		            <thead>
+		                <tr>
+		                	<th>S.No</th>
+		                    <th>Name</th>
+		                    <th>Degree</th>
+		                    <th>Designation</th>
+		                    <th>Mobile Number</th>
+		                    <th>Username</th>
+		                    <th>Action</th>
+		                </tr>
+		            </thead>
+		            <tbody>
+		            	{% for teachers in teacher %}
+		                <tr>
+		                	<td>{{forloop.counter}}</td>
+		                    <td>{{teachers.staff_name}}</td>
+		                    <td>{{teachers.degree}}</td>
+		                    <td>{{teachers.designation}}</td>
+		                    <td>{{teachers.mobile}}</td>
+		                    <td>{{teachers.username}}</td>
+		                    <td><a href="{% url 'edit_teacher' pk=teachers.staff_id %}" class="btn btn-success btn-xs"><i class="fas fa-pencil-alt"></i></a> <a href="{% url 'teacher_delete' pk=teachers.staff_id %}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure Want to Delete?')"><i class="fas fa-trash"></i></a> </td>
+		                </tr>
+		               {% endfor %}
+		            </tfoot>
+		        </table>
+		</div>
+	</div>
+
+	</div>
+	{% if teacher.has_other_pages %}
+      <ul class="pagination" style="float: right;">
+        {% if teacher.has_previous %}
+          <li><a class="page-link" href="?page={{ teacher.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+          <li class="disabled page-item disabled"> <a class="page-link" href="#" tabindex="-1"><span>&laquo;</span></a></li>
+        {% endif %}
+        {% for i in teacher.paginator.page_range %}
+          {% if teacher.number == i %}
+            <li class="active page-item active"><a class="page-link" href="#"><span>{{ i }} <span class="sr-only">(current)</span></span></a></li>
+          {% else %}
+            <li class="page-item"><a  class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if teacher.has_next %}
+          <li  class="page-item"><a class="page-link" href="?page={{ teacher.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li class="disabled page-item disabled"><a class="page-link" href="#"><span>&raquo;</span></a></li>
+        {% endif %}
+      </ul>
+    {% endif %}
+{% endif %}
+{% include 'footer.html' %}  
+              
+                   

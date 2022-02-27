@@ -1,0 +1,122 @@
+{% include 'teacher_header.html' %}
+    {% if request.session.teacher %}
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        {% if messages %}
+        {% for msg in messages %}
+            <div class="alert alert-success">{{msg}}</div>
+        {% endfor %}
+        {% endif %}
+        <div class="section-block">
+            <h5 class="section-title">
+                {% for i in exam %} {{i}} {% endfor %} Exam Marks
+            </h5>
+
+        </div>
+        <form id="submit_mark" method="Post" enctype="multipart/form-data">{% csrf_token %}
+
+        <div class="card">
+            <h5 class="card-header">Fill the Mark</h5>
+            <div class="card-body">
+                {% block mark %}
+                {% if mark %}
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered first">
+                        <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th>Register Number</th>
+                                <th>Student Name</th>
+                                <th>Class & Section</th>
+                                <th> Mark</th>
+                            </tr>
+                        </thead>
+                        
+                            <tbody>
+                                
+                                 {% for students in student %}
+                                <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{students.student_id.register_number}}</td>
+                                    <td>{{students.student_id}}</td>
+                                    <td>{{students.class_id}} - {{students.section_id}} 
+
+                                    </td>
+                                    <td> {% for marks in mark %} {% if marks.1 == students.student_id.register_number %} <div class="pull_left_marks">{{marks.10}}<input type="text" id="id_student_mark_{{marks.0}}" name="student_mark[]"  value="{{marks.6}}"class="form-control" />
+                                    <input type="hidden" value={{marks.5}} name="subject_id[]"></div>
+                                     <input type="hidden" name="stud_reg_no[]" value={{marks.1}}>
+                                    <input type="hidden" name="staff_id[]" value={{request.session.user_id}}>
+                                     <input type="hidden" name="mark_id[]" value={{marks.0}}>
+                                    {% endif %}{% endfor %}</td>
+                                </tr>
+                                {% empty %}
+                                    <tr>
+                                      <td colspan="8" class="text-center bg-primary">No Students for this Class</td>
+                                    </tr>
+                                {% endfor %}
+
+                            </tbody>
+
+                        
+                    </table>
+                   
+                        <input type="submit" value="Update Marks" class="btn btn-secondary pull-right" id="add_marks">
+                    
+                </div>
+                {% else %}
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered first">
+                        <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th>Register Number</th>
+                                <th>Student Name</th>
+                                <th>Class & Section</th>
+                                <th> Mark</th>
+                            </tr>
+                        </thead>
+                            <tbody>
+                                {% for students in student %}
+                                <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{students.student_id.register_number}}</td>
+                                    <td>{{students.student_id}}</td>
+                                    <td>{{students.class_id}} - {{students.section_id}} 
+
+                                    </td>
+                                    
+                                    <td>
+                                        {% for subjects in subject %}
+                                            <div class="pull_left_marks">{{subjects.subject_id.subject_name}}<input type="text" id="id_student_mark_{{subjects.subject_id_id}}" name="student_mark[]" class="form-control" />
+                                            <input type="hidden" value={{subjects.subject_id_id}} name="subject_id[]"></div><span id="already_exist_{{subjects.subject_id_id}}" style="color: red;font-size:10px;"></span>
+                                            <input type="hidden" name="stud_reg_no[]" value={{students.student_id.register_number}}>
+                                            <input type="hidden" name="staff_id[]" value={{request.session.user_id}}>
+                                            <input type="hidden" name="mark_id" id="mark_id" value="">
+                                            {% endfor %} </td>
+                                </tr>
+                                {% empty %}
+                                    <tr>
+                                      <td colspan="8" class="text-center bg-primary">No Students for this Class</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        
+                    </table>
+                      {% if cnt == 0 %}
+                        
+                    {% else %}
+                        <input type="submit" value="Add Marks" class="btn btn-secondary pull-right" id="add_marks">
+                    {% endif %}
+                </div>
+
+            {% endif %}
+            {% endblock %}
+            </div>
+        </div>
+    </form>
+
+</div> 
+
+
+    {% endif %}
+{% include 'footer.html' %}
+

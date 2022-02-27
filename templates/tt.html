@@ -1,0 +1,132 @@
+{% if messages %}
+								{% for message in messages %}
+									<div class="alert alert-success">{{message}}</div>
+								{% endfor %}
+							{% endif %}
+							<div class="hidden_value">{{form.school_id}}</div>
+							<input type="hidden" value="{{request.session.schoolname}}" id="school_id_value">
+							<div class="row">
+				                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Student Name</label>
+				                    {{form.student_name}}
+				                    {{form.student_name.errors}}
+				                </div>
+				                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Register Number</label>
+				                    {{form.register_number}}
+				                    {{form.register_number.errors}}
+				                </div>
+				            
+				            	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Admission Number</label>
+				                   	{{form.admission_number}}
+				                    {{form.admission_number.errors}}
+				                </div>
+				                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Date of Admission</label>
+				                    {{form.date_of_admission}}
+				                    {{form.date_of_admission.errors}}
+				                </div>
+				            
+				            	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Date of Birth</label>
+				                    {{form.date_of_birth}}
+				                    {{form.date_of_birth.errors}}
+				                </div>
+				                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Adhar Number</label>
+				                    {{form.adhar_number}}
+				                    {{form.adhar_number.errors}}
+				                </div>
+				            
+				            	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Father Name</label>
+				                    {{form.father_name}}
+				                    {{form.father_name.errors}}
+				                </div>
+				                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Mother Name</label>
+				                    {{form.mother_name}}
+				                    {{form.mother_name.errors}}
+				                </div>
+				            
+				            	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Guardian Name</label>
+				                    {{form.guardian_name}}
+				                </div>
+				                
+				                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Emergency Number</label>
+				                    {{form.emergency_number}}
+				                    {{form.emergency_number.errors}}
+				                </div>
+				            
+				            	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Father Occupation</label>
+				                    {{form.father_occupation}}				                </div>
+				                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Mother Occupation</label>
+				                    {{form.mother_occupation}}
+				                </div>
+				            
+				            	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Present Address</label>
+				                    {{form.present_address}}
+				                    {{form.present_address.errors}}
+				                </div>
+				                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Permanent Address</label>
+				                    {{form.permanent_address}}
+				                    {{form.permanent_address.errors}}
+				                </div>
+				            
+				            	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>City</label>
+				                    {{form.city}}
+				                    {{form.city.errors}}
+				                </div>
+				                
+				                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>State</label>
+				                    {{form.state}}
+				                    {{form.state.errors}}
+				                </div>
+
+				             	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Country</label>
+				                    {{form.country}}
+				                    {{form.country.errors}}
+				                </div>
+				            	
+				            	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Religion</label>
+				                   {{form.religion}}
+				                   {{form.religion.errors}}
+				                </div>
+				           
+				             	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Caste</label>
+				                    {{form.caste}}
+				                    {{form.caste.errors}}
+				                </div>
+				            	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Blood Group</label>
+				                    {{form.blood_group}}
+				                    {{form.blood_group.errors}}
+				                </div>
+				            
+				             	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Username</label>
+				                   {{form.username}}
+				                   {{form.username.errors}}
+				                </div>
+				            	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Password</label>
+				                    {{form.password}}
+				                    {{form.password.errors}}
+				                </div>
+				                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Photo</label>
+				                    {{form.Photo}}
+				                </div>
+				            </div>

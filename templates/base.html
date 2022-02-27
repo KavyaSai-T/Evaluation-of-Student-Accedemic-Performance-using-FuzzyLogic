@@ -1,0 +1,80 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>SAPE</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link href="{% static 'assets/vendor/fonts/circular-std/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'assets/libs/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/libs/css/custom.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/vendor/fonts/fontawesome/css/fontawesome-all.css' %}">
+</head>
+<body style="background-color: #295885;">
+<style>
+	.loginpage .container {
+    width: 40%;
+    margin: 100px auto 100px !important;
+}
+#logo 
+{
+padding-top:30px;
+}
+#logo .col-md-6 h3 a
+{
+	color:#FFF;
+	font-size:30px;
+}
+#logo  li
+{
+display:inline;
+margin-right:30px;
+padding-top:15px;
+}
+#logo  li a
+{
+color:#FFF;
+	font-size:15px;
+	text-transform:uppercase;
+}
+.click 
+{
+	display:none !important;
+}
+.dropdown:hover .click
+{
+	display:block !important;
+	position:absolute;
+	right:0;
+	top:30px;
+	width:170px;
+	padding:10px 0 10px 10px;
+}
+.click a:hover
+{
+color:#000 !important;
+}
+</style>
+<div class="container">
+	<div class="row" id="logo">
+		<div class="col-md-6">
+			<h3><a href="{% url 'landing_page' %}" style="color:#FFF;font-size:25px;">SAPE</a></h3>
+		</div>
+		<div class="col-md-6">
+			<ul>
+			<li><a href="{% url 'landing_page' %}">Home</a></li>
+				<li><a href="{% url 'adminlogin' %}">Admin Login</a></li>
+				<li><a href="{% url 'teacher_login' %}">Staff Login</a></li>
+				<li class="dropdown"><a href="#">Student</a>
+					<ul class="click" style="background:rgb(89, 97, 172);"><li><a href="{% url 'register' %}">Student Register</a></li><br>
+				<li style="padding-right:20px;"><a href="{% url 'student_login' %}">Student Login</a></li></ul>
+				</li>
+				
+				
+			</ul>
+		</div>
+	</div>
+</div>

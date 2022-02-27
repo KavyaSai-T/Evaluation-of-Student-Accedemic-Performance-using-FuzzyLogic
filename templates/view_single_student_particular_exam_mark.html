@@ -1,0 +1,66 @@
+{% include 'student_header.html' %}
+	{% if request.session.student_id %}
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card">
+
+                <h5 class="card-header">
+                	<div class="pull_left_total">
+                        {% for mark in Marks %}
+    	                	{% if forloop.first %}
+    	                		{{mark.0}}- {{mark.11}} Marks
+                    		{% endif%}
+                		{% endfor %}
+                    </div>
+                    <div class="pull_right_total">
+                        {% if result == "Pass" %}
+                        <h3 style="color:#2ec551;">Result: {{result}}</h3>
+                        {% else %}
+                        <h3 style="color:#ef172c;">Result: {{result}}</h3>
+                        {% endif %}
+                    </div>
+            	</h5>
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered first">
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Subject Name</th>
+                                    <th>Mark</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for mark in Marks %}
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{mark.10}}</td>
+                                        <td>{{mark.7}}</td>
+
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="8" class="text-center bg-primary">No Students for this Class</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pull_right_tot">
+                        
+                        <h3>Total Mark: {{tot}}</h3>
+                        <h3>Percentage: {{percentage}}</h3>
+                        <h4>{% for mark in Marks %}
+                        {% if forloop.first %}
+                            {{mark.11}}
+                        {% endif%}
+                    {% endfor %} Grade: {{grade}}  </h4>
+                    
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+	{% endif %}
+{% include 'footer.html' %}

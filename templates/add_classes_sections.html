@@ -1,0 +1,98 @@
+{% include 'header.html' %}
+		{% if request.session.username %}
+			<div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header">Degree & Department</h5>
+                            {% if messages %}
+                                {% for msg in messages %}
+                                    <div class="alert alert-success">{{msg}}</div>
+                                {% endfor %}
+                            {% endif %}
+                        <div class="card-body"><h5>Add Degree & Department (Ex.BTECH-CSE,BTECH-ECE,BSc-CS etc)</h5>
+                            <form method="Post">{% csrf_token %}
+                                <input type="hidden" name="school_id" value="{{request.session.schoolname}}">
+                                <div class="form-group">
+                                    <label>Degree & Department Name</label>
+                                    <input  type="text" name="class_name" required="required" autocomplete="off" class="form-control">
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0"></div>
+                                    <div class="col-sm-6 pl-0">
+                                        <p class="text-right">
+                                            <button type="submit" class="btn btn-space btn-primary">Add Degree</button>
+                                            <button class="btn btn-space btn-secondary">Cancel</button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+               <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header">Degree & Department List</h5>
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">S.No</th>
+                                        <th scope="col">Degree</th>
+                                        <th scope="col">Department</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for i in cls_sec_name %}
+                                    	<tr>
+                                            <th scope="row">{{forloop.counter}}</th>
+                                            <td>{{i.1}}</td>
+                                            <td>{% if i.3 %}{{i.3}}{% else %} No Section {% endif %}</td>
+                                            <td>
+                                                {% if i.3 %}
+                                                    <a href="{% url 'edit_classes_sections' cls_id=i.0 sec_id=i.2 %}" class="btn btn-success btn-xs"><i class="fas fa-pencil-alt"></i></a> <a href="{% url 'delete_classes_sections' cls_id=i.0 sec_id=i.2 %}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure Want to Delete?')"> <i class="fas fa-trash"></i></a>
+                                                {% else %}
+                                                    <a href="{% url 'edit_class' cls_id=i.0 %}" class="btn btn-success btn-xs"><i class="fas fa-pencil-alt"></i></a>
+                                                    <a href="{% url 'delete_class' cls_id=i.0 %}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure Want to Delete?')"> <i class="fas fa-trash"></i></a>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% empty %}
+                                        <tr>
+                                            <td colspan="8" class="text-center bg-primary">No Class & Section</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+{% if cls_name.has_other_pages %}
+      <ul class="pagination" style="float: right;">
+        {% if cls_name.has_previous %}
+          <li><a class="page-link" href="?page={{ cls_name.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+          <li class="disabled page-item disabled"> <a class="page-link" href="#" tabindex="-1"><span>&laquo;</span></a></li>
+        {% endif %}
+        {% for i in cls_name.paginator.page_range %}
+          {% if cls_name.number == i %}
+            <li class="active page-item active"><a class="page-link" href="#"><span>{{ i }} <span class="sr-only">(current)</span></span></a></li>
+          {% else %}
+            <li class="page-item"><a  class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if cls_name.has_next %}
+          <li  class="page-item"><a class="page-link" href="?page={{ cls_name.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li class="disabled page-item disabled"><a class="page-link" href="#"><span>&raquo;</span></a></li>
+        {% endif %}
+      </ul>
+    {% endif %}
+		{% endif %}
+{% include 'footer.html' %}  
+              
+                   

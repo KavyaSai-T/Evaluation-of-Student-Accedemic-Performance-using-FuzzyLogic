@@ -1,0 +1,8 @@
+{% include 'teacher_header.html' %}
+		{% if request.session.teacher %}
+			<h2>Username: {{request.session.teacher}}</h2>
+			
+		{% endif %}
+{% include 'footer.html' %}  
+              
+                   

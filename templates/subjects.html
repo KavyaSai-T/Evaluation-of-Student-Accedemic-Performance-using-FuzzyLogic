@@ -1,0 +1,507 @@
+{% include 'header.html' %}
+		{% if request.session.username %}
+		<!-- Add School Details -->
+			<div class="form_page">
+				<div class="card">
+		            <h5 class="card-header">Add School Details</h5>
+		            <div class="card-body">
+						<form id="form" data-parsley-validate="" novalidate="" method="Post">
+			                <div class="form-group row">
+			                    <label class="col-3 col-lg-2 col-form-label text-right">School Name</label>
+			                    <div class="col-9 col-lg-10">
+			                        <input type="text" required="" data-parsley-type="text"  class="form-control">
+			                    </div>
+			                </div>
+			                <div class="form-group row">
+			                    <label class="col-3 col-lg-2 col-form-label text-right">Email</label>
+			                    <div class="col-9 col-lg-10">
+			                        <input type="email" required="" data-parsley-type="email"  class="form-control">
+			                    </div>
+			                </div>
+			                <div class="form-group row">
+			                    <label class="col-3 col-lg-2 col-form-label text-right">Mobile</label>
+			                    <div class="col-9 col-lg-10">
+			                        <input type="number" required="" data-parsley-type="number"  class="form-control">
+			                    </div>
+			                </div>
+			                <div class="form-group row">
+			                    <label class="col-3 col-lg-2 col-form-label text-right">Fax</label>
+			                    <div class="col-9 col-lg-10">
+			                        <input type="text" required="" data-parsley-type="text"  class="form-control">
+			                    </div>
+			                </div>
+			                <div class="form-group row">
+			                    <label class="col-3 col-lg-2 col-form-label text-right">Address</label>
+			                    <div class="col-9 col-lg-10">
+			                       <textarea class="form-control"></textarea>
+			                    </div>
+			                </div>
+			                <div class="form-group row">
+			                    <label class="col-3 col-lg-2 col-form-label text-right">City</label>
+			                    <div class="col-9 col-lg-10">
+			                        <input type="text" required="" data-parsley-type="text"  class="form-control">
+			                    </div>
+			                </div>
+			                <div class="form-group row">
+			                    <label class="col-3 col-lg-2 col-form-label text-right">State</label>
+			                    <div class="col-9 col-lg-10">
+			                        <input type="text" required="" data-parsley-type="text"  class="form-control">
+			                    </div>
+			                </div>
+			                <div class="form-group row">
+			                    <label class="col-3 col-lg-2 col-form-label text-right">Country</label>
+			                    <div class="col-9 col-lg-10">
+			                        <input type="text" required="" data-parsley-type="text"  class="form-control">
+			                    </div>
+			                </div>
+			                <div class="form-group row">
+			                    <label class="col-3 col-lg-2 col-form-label text-right">Affliated Number</label>
+			                    <div class="col-9 col-lg-10">
+			                        <input type="number" required="" data-parsley-type="number"  class="form-control">
+			                    </div>
+			                </div>
+			                <div class="form-group row">
+			                    <label class="col-3 col-lg-2 col-form-label text-right">Website</label>
+			                    <div class="col-9 col-lg-10">
+			                        <input type="text" required="" data-parsley-type="text"  class="form-control">
+			                    </div>
+			                </div>
+			                <div class="form-group row">
+			                    <label  class="col-3 col-lg-2 col-form-label text-right">Logo</label>
+			                    <div class="col-9 col-lg-10">
+			                         <input type="file" required="" data-parsley-type="file"  class="form-control">
+			                    </div>
+			                </div>
+			                
+			                <div class="row pt-2 pt-sm-5 mt-1">
+			                    <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0">
+			                        
+			                    </div>
+			                    <div class="col-sm-6 pl-0">
+			                        <p class="text-right">
+			                            <input type="submit" class="btn btn-space btn-primary" value="Add School">
+			                            <input type="reset" class="btn btn-space btn-secondary" value="Cancel">
+			                        </p>
+			                    </div>
+			                </div>
+			            </form>
+	           </div>
+	         </div>
+	      </div>
+
+	    <!-- Add Users -->
+	    <div class="form_page">
+			<div class="card">
+	            <h5 class="card-header">Add User</h5>
+	            <div class="card-body">
+					<form id="form" data-parsley-validate="" novalidate="" method="Post">
+		               <div class="form-group row">
+				            <label  class="col-3 col-lg-2 col-form-label text-right">School</label>
+			                <div class="col-9 col-lg-10">
+		                       <select class="form-control" id="input-select">
+                                    <option>Select</option>
+                                    <option>PSG</option>
+                                    <option>Bharathi</option>
+                                    <option>Chavara</option>
+                                    <option>PSBB</option>
+                                </select>
+			                </div>
+				        </div>
+		                <div class="form-group row">
+		                    <label class="col-3 col-lg-2 col-form-label text-right">Username</label>
+		                    <div class="col-9 col-lg-10">
+		                        <input type="text" required="" data-parsley-type="text"  class="form-control">
+		                    </div>
+		                </div>
+		                <div class="form-group row">
+		                    <label class="col-3 col-lg-2 col-form-label text-right">Password</label>
+		                    <div class="col-9 col-lg-10">
+		                        <input type="password" required="" data-parsley-type="password"  class="form-control">
+		                    </div>
+		                </div>
+		                <div class="form-group row">
+				            <label  class="col-3 col-lg-2 col-form-label text-right">Usertype</label>
+			                <div class="col-9 col-lg-10">
+		                       <select class="form-control" id="input-select">
+                                    <option>Select</option>
+                                    <option>Manager</option>
+                                    <option>Editor</option>
+                                </select>
+			                </div>
+				        </div>
+		                
+		                <div class="row pt-2 pt-sm-5 mt-1">
+		                    <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0">
+		                        
+		                    </div>
+		                    <div class="col-sm-6 pl-0">
+		                        <p class="text-right">
+		                            <input type="submit" class="btn btn-space btn-primary" value="Add User">
+		                            <input type="reset" class="btn btn-space btn-secondary" value="Cancel">
+		                        </p>
+		                    </div>
+		                </div>
+		            </form>
+           		</div>
+         	</div>
+	    </div>
+
+	    <!-- Student Section -->
+	    <div class="form_page">
+			<div class="card">
+	            <h5 class="card-header">Student Section</h5>
+	            <div class="card-body">
+					<form id="form" data-parsley-validate="" novalidate="" method="Post">
+		               <div class="form-group row">
+				            <label  class="col-3 col-lg-2 col-form-label text-right">Student</label>
+			                <div class="col-9 col-lg-10">
+		                       <select class="form-control" id="input-select">
+                                    <option>Select</option>
+                                    <option>Student 1</option>
+                                    <option>Student 2</option>
+                                    <option>Student 3</option>
+                                    <option>Student 4</option>
+                                </select>
+			                </div>
+				        </div>
+				        <div class="form-group row">
+				            <label  class="col-3 col-lg-2 col-form-label text-right">Class</label>
+			                <div class="col-9 col-lg-10">
+		                       <select class="form-control" id="input-select">
+                                    <option>Select</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                </select>
+			                </div>
+				        </div>
+				        <div class="form-group row">
+				            <label  class="col-3 col-lg-2 col-form-label text-right">Section</label>
+			                <div class="col-9 col-lg-10">
+		                       <select class="form-control" id="input-select">
+                                    <option>Select</option>
+                                    <option>A</option>
+                                    <option>B</option>
+                                    <option>C</option>
+                                    <option>D</option>
+                                </select>
+			                </div>
+				        </div>
+		                <div class="form-group row">
+		                    <label class="col-3 col-lg-2 col-form-label text-right">Academic Year</label>
+		                    <div class="col-9 col-lg-10">
+		                        <input type="text" required="" data-parsley-type="text"  class="form-control">
+		                    </div>
+		                </div>
+		                <div class="row pt-2 pt-sm-5 mt-1">
+		                    <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0">
+		                        
+		                    </div>
+		                    <div class="col-sm-6 pl-0">
+		                        <p class="text-right">
+		                            <input type="submit" class="btn btn-space btn-primary" value="Submit">
+		                            <input type="reset" class="btn btn-space btn-secondary" value="Cancel">
+		                        </p>
+		                    </div>
+		                </div>
+		            </form>
+           		</div>
+         	</div>
+	    </div>
+
+	    <!-- Student Mark -->
+	    <div class="form_page">
+			<div class="card">
+	            <h5 class="card-header">Student Mark</h5>
+	            <div class="card-body">
+					<form id="form" data-parsley-validate="" novalidate="" method="Post">
+		               <div class="form-group row">
+				            <label  class="col-3 col-lg-2 col-form-label text-right">Student</label>
+			                <div class="col-9 col-lg-10">
+		                       <select class="form-control" id="input-select">
+                                    <option>Select</option>
+                                    <option>Student 1</option>
+                                    <option>Student 2</option>
+                                    <option>Student 3</option>
+                                    <option>Student 4</option>
+                                </select>
+			                </div>
+				        </div>
+				        <div class="form-group row">
+				            <label  class="col-3 col-lg-2 col-form-label text-right">Subject</label>
+			                <div class="col-9 col-lg-10">
+		                       <select class="form-control" id="input-select">
+                                    <option>Select</option>
+                                    <option>Maths</option>
+                                    <option>Science</option>
+                                    <option>Social</option>
+                                    <option>English</option>
+                                    <option>Tamil</option>
+                                </select>
+			                </div>
+				        </div>
+				        <div class="form-group row">
+				            <label  class="col-3 col-lg-2 col-form-label text-right">Exam</label>
+			                <div class="col-9 col-lg-10">
+		                       <select class="form-control" id="input-select">
+                                    <option>Select</option>
+                                    <option>Mid Term</option>
+                                    <option>Quaterly</option>
+                                    <option>Half Yearly</option>
+                                    <option>Annual</option>
+                                </select>
+			                </div>
+				        </div>
+		                <div class="form-group row">
+		                    <label class="col-3 col-lg-2 col-form-label text-right">Marks</label>
+		                    <div class="col-9 col-lg-10">
+		                        <input type="number" required="" data-parsley-type="number"  class="form-control">
+		                    </div>
+		                </div>
+		                <div class="form-group row">
+		                    <label class="col-3 col-lg-2 col-form-label text-right">Academic Year</label>
+		                    <div class="col-9 col-lg-10">
+		                        <input type="text" required="" data-parsley-type="text"  class="form-control">
+		                    </div>
+		                </div>
+		                <div class="row pt-2 pt-sm-5 mt-1">
+		                    <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0">
+		                        
+		                    </div>
+		                    <div class="col-sm-6 pl-0">
+		                        <p class="text-right">
+		                            <input type="submit" class="btn btn-space btn-primary" value="Submit">
+		                            <input type="reset" class="btn btn-space btn-secondary" value="Cancel">
+		                        </p>
+		                    </div>
+		                </div>
+		            </form>
+           		</div>
+         	</div>
+	    </div>
+
+	    <!-- Student Result -->
+	    <div class="form_page">
+			<div class="card">
+	            <h5 class="card-header">Student Result</h5>
+	            <div class="card-body">
+					<form id="form" data-parsley-validate="" novalidate="" method="Post">
+						<div class="form-group row">
+		                    <label class="col-3 col-lg-2 col-form-label text-right">Academic Year</label>
+		                    <div class="col-9 col-lg-10">
+		                        <input type="text" required="" data-parsley-type="text"  class="form-control">
+		                    </div>
+		                </div>
+		               	<div class="form-group row">
+				            <label  class="col-3 col-lg-2 col-form-label text-right">Student</label>
+			                <div class="col-9 col-lg-10">
+		                       <select class="form-control" id="input-select">
+                                    <option>Select</option>
+                                    <option>Student 1</option>
+                                    <option>Student 2</option>
+                                    <option>Student 3</option>
+                                    <option>Student 4</option>
+                                </select>
+			                </div>
+				        </div>
+				        <div class="form-group row">
+				            <label  class="col-3 col-lg-2 col-form-label text-right">Exam</label>
+			                <div class="col-9 col-lg-10">
+		                       <select class="form-control" id="input-select">
+                                    <option>Select</option>
+                                    <option>Mid Term</option>
+                                    <option>Quaterly</option>
+                                    <option>Half Yearly</option>
+                                    <option>Annual</option>
+                                </select>
+			                </div>
+				        </div>
+				        <div class="form-group row">
+		                    <label class="col-3 col-lg-2 col-form-label text-right">Total</label>
+		                    <div class="col-9 col-lg-10">
+		                        <input type="number" required="" data-parsley-type="number"  class="form-control">
+		                    </div>
+		                </div>
+		                <div class="form-group row">
+		                    <label class="col-3 col-lg-2 col-form-label text-right">Percentage</label>
+		                    <div class="col-9 col-lg-10">
+		                        <input type="number" required="" data-parsley-type="number"  class="form-control">
+		                    </div>
+		                </div>
+		                <div class="form-group row">
+		                    <label class="col-3 col-lg-2 col-form-label text-right">Grade</label>
+		                    <div class="col-9 col-lg-10">
+		                        <input type="text" required="" data-parsley-type="text"  class="form-control">
+		                    </div>
+		                </div>
+		                <div class="form-group row">
+		                    <label for="inputWebSite" class="col-3 col-lg-2 col-form-label text-right">Result</label>
+		                   <label class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" name="radio-inline" checked="" class="custom-control-input"><span class="custom-control-label">Pass</span>
+							</label>
+                            <label class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" name="radio-inline" checked="" class="custom-control-input"><span class="custom-control-label">Fail</span>
+                            </label>            
+		                </div>
+		                
+		               
+		                <div class="row pt-2 pt-sm-5 mt-1">
+		                    <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0">
+		                        
+		                    </div>
+		                    <div class="col-sm-6 pl-0">
+		                        <p class="text-right">
+		                            <input type="submit" class="btn btn-space btn-primary" value="Submit">
+		                            <input type="reset" class="btn btn-space btn-secondary" value="Cancel">
+		                        </p>
+		                    </div>
+		                </div>
+		            </form>
+           		</div>
+         	</div>
+	    </div>
+
+	    <!-- Student Task -->
+	    <div class="form_page">
+			<div class="card">
+	            <h5 class="card-header">Student Task</h5>
+	            <div class="card-body">
+					<form id="form" data-parsley-validate="" novalidate="" method="Post">
+						<div class="form-group row">
+		                    <label class="col-3 col-lg-2 col-form-label text-right">Academic Year</label>
+		                    <div class="col-9 col-lg-10">
+		                        <input type="text" required="" data-parsley-type="text"  class="form-control">
+		                    </div>
+		                </div>
+		               	<div class="form-group row">
+				            <label  class="col-3 col-lg-2 col-form-label text-right">Student</label>
+			                <div class="col-9 col-lg-10">
+		                       <select class="form-control" id="input-select">
+                                    <option>Select</option>
+                                    <option>Student 1</option>
+                                    <option>Student 2</option>
+                                    <option>Student 3</option>
+                                    <option>Student 4</option>
+                                </select>
+			                </div>
+				        </div>
+				        <div class="form-group row">
+				            <label  class="col-3 col-lg-2 col-form-label text-right">Subject</label>
+			                <div class="col-9 col-lg-10">
+		                       <select class="form-control" id="input-select">
+                                    <option>Select</option>
+                                    <option>Tamil</option>
+                                    <option>English</option>
+                                    <option>Maths</option>
+                                    <option>Science</option>
+                                    <option>Social</option>
+                                </select>
+			                </div>
+				        </div>
+				        <div class="form-group row">
+		                    <label for="inputWebSite" class="col-3 col-lg-2 col-form-label text-right">Homework/Classwork</label>
+		                   <label class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" name="radio-inline" checked="" class="custom-control-input"><span class="custom-control-label">Homework</span>
+							</label>
+                            <label class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" name="radio-inline" checked="" class="custom-control-input"><span class="custom-control-label">Classwork</span>
+                            </label>            
+		                </div>
+		               	<div class="form-group row">
+				            <label  class="col-3 col-lg-2 col-form-label text-right">Status</label>
+			                <div class="col-9 col-lg-10">
+		                       <select class="form-control" id="input-select">
+                                    <option>Select</option>
+                                    <option>Completed</option>
+                                    <option>Pending</option>
+                                    <option>Inprogress</option>
+                                </select>
+			                </div>
+				        </div>
+		                <div class="row pt-2 pt-sm-5 mt-1">
+		                    <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0">
+		                        
+		                    </div>
+		                    <div class="col-sm-6 pl-0">
+		                        <p class="text-right">
+		                            <input type="submit" class="btn btn-space btn-primary" value="Submit">
+		                            <input type="reset" class="btn btn-space btn-secondary" value="Cancel">
+		                        </p>
+		                    </div>
+		                </div>
+		            </form>
+           		</div>
+         	</div>
+	    </div>
+
+	    <!-- Other Cirricular Activities-->
+	    <div class="form_page">
+			<div class="card">
+	            <h5 class="card-header">Cirricular Activities</h5>
+	            <div class="card-body">
+					<form id="form" data-parsley-validate="" novalidate="" method="Post">
+						<div class="form-group row">
+		                    <label class="col-3 col-lg-2 col-form-label text-right">Academic Year</label>
+		                    <div class="col-9 col-lg-10">
+		                        <input type="text" required="" data-parsley-type="text"  class="form-control">
+		                    </div>
+		                </div>
+		                <div class="form-group row">
+				            <label  class="col-3 col-lg-2 col-form-label text-right">Student</label>
+			                <div class="col-9 col-lg-10">
+		                       <select class="form-control" id="input-select">
+                                    <option>Select</option>
+                                    <option>Student 1</option>
+                                    <option>Student 2</option>
+                                    <option>Student 3</option>
+                                    <option>Student 4</option>
+                                    <option>Student 5</option>
+                                </select>
+			                </div>
+				        </div>
+		               	<div class="form-group row">
+				            <label  class="col-3 col-lg-2 col-form-label text-right">Exam</label>
+			                <div class="col-9 col-lg-10">
+		                       <select class="form-control" id="input-select">
+                                    <option>Select</option>
+                                    <option>Mid Term</option>
+                                    <option>Quaterly</option>
+                                    <option>Half Yearly</option>
+                                </select>
+			                </div>
+				        </div>
+				        
+				        <div class="form-group row">
+		                    <label class="col-3 col-lg-2 col-form-label text-right">Mark</label>
+		                    <div class="col-9 col-lg-10">
+		                        <input type="number" required="" data-parsley-type="number"  class="form-control">
+		                    </div>
+		                </div>
+		                <div class="form-group row">
+		                    <label class="col-3 col-lg-2 col-form-label text-right">Grade</label>
+		                    <div class="col-9 col-lg-10">
+		                        <input type="text" required="" data-parsley-type="text"  class="form-control">
+		                    </div>
+		                </div>
+		                <div class="row pt-2 pt-sm-5 mt-1">
+		                    <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0">
+		                        
+		                    </div>
+		                    <div class="col-sm-6 pl-0">
+		                        <p class="text-right">
+		                            <input type="submit" class="btn btn-space btn-primary" value="Submit">
+		                            <input type="reset" class="btn btn-space btn-secondary" value="Cancel">
+		                        </p>
+		                    </div>
+		                </div>
+		            </form>
+           		</div>
+         	</div>
+	    </div>
+
+
+	{% endif %}
+{% include 'footer.html' %}  
+              
+                   

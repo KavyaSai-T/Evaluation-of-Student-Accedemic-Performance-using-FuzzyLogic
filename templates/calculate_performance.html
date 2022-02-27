@@ -1,0 +1,22 @@
+{% if request.session.username %}
+{% include 'header.html' %}
+{% elif request.session.student %}
+{% include 'student_header.html' %}
+{% else %}
+{% include 'teacher_header.html' %}
+{% endif %}
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card">
+                <h5 class="card-header">Performance Analysis</h5>
+                <div class="card-body">
+						<h3>Overall Average: {{total}} </h3><br>
+						<h4 style="color:green;">Perforamce: {{credit}} </h4>
+						<h3>Improvement Message: {{analysis}}</h3>
+					</div>
+					
+				
+            </div>
+        </div>
+
+
+{% include 'footer.html' %}

@@ -1,0 +1,37 @@
+{% include 'header.html' %}
+	{% if request.session.username %}
+
+	<div class="row">
+                       
+                <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header">Degree & Department</h5>
+                        <div class="card-body"><h5>Edit Degree & Department</h5>
+                            <form method="Post" >{% csrf_token %}
+                                <input type="hidden" name="school_id" value="{{request.session.schoolname}}">
+                                {% for i in post %}
+	                                <div class="form-group">
+	                                    <label>Degree Name</label>
+	                                    <input  type="text" name="class_name"  class="form-control"  value="{{i.class_id}}">
+	                                </div>
+	                                <div class="form-group">
+	                                    <label>Department Name</label>
+	                                    <input  type="text" name="section_name"  class="form-control" value="{{i.section_name}}">
+	                                </div>
+                                {% endfor %}
+                                <div class="row">
+                                    <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0"></div>
+                                    <div class="col-sm-6 pl-0">
+                                        <p class="text-right">
+                                            <button type="submit" class="btn btn-space btn-primary">Update </button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+         </div>
+
+	{% endif %}
+{% include 'footer.html' %}

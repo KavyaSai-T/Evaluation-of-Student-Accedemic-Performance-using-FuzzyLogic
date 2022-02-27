@@ -1,0 +1,40 @@
+{% include 'teacher_header.html' %}
+	{% if request.session.teacher %}
+		<div class="form_page">
+			<div class="card">
+	            <h3 class="card-header">Assign Students Class and Section</h3>
+	            {% if messages %}
+                  {% for message in messages %}
+                    <div class="alert alert-success">{{message}}</div>
+                  {% endfor %}
+                {% endif %}
+	            <div class="text-right" id="margin_std">
+                    <a href="/media/excel/assign_student.xlsx" class="btn btn-success">Download Sample Excel</a>              
+                </div>
+	            <div class="card-body">
+					<form id="Student_sectionform"  method="Post" enctype="multipart/form-data" >{% csrf_token %}
+						
+		               <div class="form-group row">
+				            <label  class="col-3 col-lg-2 col-form-label ">Import Student Name</label>
+			                <div class="col-9 col-lg-10">
+                                <input type="file" name="excel_file" class="form-control"  required="required">
+                                <div id="error1"></div>
+			                </div>
+			             </div>
+		                <div class="row pt-2 pt-sm-5 mt-1" style="padding-top:10px !important;">
+		                    <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0">
+
+		                    </div>
+		                    <div class="col-sm-6 pl-0">
+		                        <p class="text-right">
+		                            <input type="submit" class="btn btn-space btn-primary" value="Submit">
+		                            <input type="reset" class="btn btn-space btn-secondary" value="Cancel">
+		                        </p>
+		                    </div>
+		                </div>
+		            </form>
+           		</div>
+         	</div>
+	    </div>
+	{% endif %}
+{% include 'footer.html' %}

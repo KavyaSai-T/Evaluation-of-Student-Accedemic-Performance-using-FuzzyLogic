@@ -1,0 +1,57 @@
+
+{% load mathfilters %}
+{% if request.session.username %}
+{% include 'header.html' %}
+{% elif request.session.student %}
+{% include 'student_header.html' %}
+{% else %}
+{% include 'teacher_header.html' %}
+{% endif %}
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card">
+                <h5 class="card-header">Average</h5>
+            <form action="{% url 'calculate_performance' %}" method="get"> 
+              
+                <div class="card-body">
+                    <div class="row">
+					{% for i in row %}
+						<div class="col-md-4">
+							<h4>External Mark AVG </h4>
+							  {% with numerator=i.0 denominator=70 %}
+								 {% with a=numerator|div:denominator  %}
+									 {% with b=a|mul:100 %}
+										<h5 style="color:green";>{{ b|floatformat }} % </h5>
+										<input type="hidden" name="ex" value="{{ b|floatformat }}">
+									 {% endwith %}
+								 {% endwith %}
+							  {% endwith %}
+						</div>
+					{% endfor %}
+					{% for i in marks %}
+						<div class="col-md-4">
+							<h4>Internal Mark AVG </h4>
+							 {% with numerator=i.0 denominator=30 %}
+								 {% with a=numerator|div:denominator  %}
+									 {% with c=a|mul:100 %}
+										<h5  style="color:green";> {{ c|floatformat }} %</h5>
+										<input type="hidden" name="internal" value="{{ c|floatformat }}">
+									 {% endwith %}
+								 {% endwith %}
+							  {% endwith %}
+						</div>
+					{% endfor %}
+					{% for i in attendance %}
+						<div class="col-md-4">
+							<h4>Attendance AVG </h4>
+							<h5  style="color:green";>{{i.percentage}} %</h5>
+							<input type="hidden" name="percentage" value="{{i.percentage}}">
+						</div>
+					{% endfor %}
+					</div>
+					
+					<div style="float:right;margin:20px;"><input type="submit" class="btn btn-success" value="Calculate Performance"></div>
+                </div>
+            </div>
+        </div>
+</form>
+{% include 'footer.html' %}

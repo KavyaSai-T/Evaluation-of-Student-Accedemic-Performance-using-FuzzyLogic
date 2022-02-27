@@ -1,0 +1,29 @@
+{% load static %}
+{% include 'header.html' %}
+	{% if request.session.username %}
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <h5 class="card-header">Import Students</h5>
+                    <div class="card-body">
+                        {% if messages %}
+                            {% for msg in messages %}
+                                <div class="alert alert-success">{{msg}}</div>
+                            {% endfor %}
+                        {% endif %}
+                        <form id="post-form" method="Post" enctype="multipart/form-data">{% csrf_token %}
+                            <input type="hidden" value="{{request.session.schoolname}}" id="id_school_id" name="school_id">
+                        	<div class="form-group">
+                                <input type="file" name="excel_file" class="form-control" id="excel_student">
+                                <input type="submit" class="btn btn-space btn-secondary" value="Import Students" id="student_right">
+                                <div class="clear"></div>
+                            </div>
+                           
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% include 'footer.html' %}
+               

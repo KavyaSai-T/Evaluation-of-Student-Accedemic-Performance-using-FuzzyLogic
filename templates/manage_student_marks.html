@@ -1,0 +1,78 @@
+{% include 'teacher_header.html' %}
+	{% if request.session.teacher %}
+	
+	<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 mb-5">
+		<div class="section-block">
+			<h5 class="section-title">Manage Students Mark</h5>
+		</div>
+	    <form id="form" method="Post" enctype="multipart/form-data">
+			<div class="form-group">
+                <label for="inputUserName">Exams : </label>
+                <select class="form-control"id="exams" name="exams" style="margin-left: 13%;margin-top: -7%;">
+                    <option>Select</option>
+                    {% for marks in mark %}
+                    <option value="{{marks.exam_id}}">{{marks.exams}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+		    
+  		<div class="tab-vertical-outline" style="margin-right: -110%;">
+		    	<ul class="nav nav-tabs " id="myTab4" role="tablist">
+					{% for cls in staff %}
+						<li class="nav-item">
+			                <a class="tablinks defaultOpen nav-link" onclick="openCity(event, '{{cls.assign_subject_teacher_id}}')" role="tab" aria-controls="home" aria-selected="true">{{cls.class_id.class_name}}-{{cls.section_id.section_name}} {{cls.subject_id.subject_name}}</a>
+			            </li>
+	  				{% endfor %}
+				</ul>
+				<div class="tab-content" id="myTabContent4">
+					{% for cls in staff %}
+						<div id="{{cls.assign_subject_teacher_id}}" class="tabcontent_data">
+							<h3>{{cls.class_id.class_name}}-{{cls.section_id.section_name}} {{cls.subject_id.subject_name}} Marks</h3>
+			                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+		                        <div class="card">
+		                            <h5 class="card-header">Enter Mark</h5>
+		                            <div class="card-body">
+		                                <div class="table-responsive">
+		                                    <table class="table table-striped table-bordered first">
+		                                        <thead>
+		                                            <tr>
+		                                                <th>S.No</th>
+		                                                <th>Name</th>
+		                                                <th>Register Number</th>
+		                                                <th>Class & Section</th>
+		                                                <th>{{cls.subject_id.subject_name}} Mark</th>
+		                                            </tr>
+		                                        </thead>
+		                                        <tbody>
+		                                        	{% for students in student %}
+		                                            <tr>
+		                                                <td>1</td>
+		                                                <td>{{students.student_id}}</td>
+		                                                <td>{{students.student_id.register_number}}</td>
+		                                                <td>{{students.class_id.class_name}} & {{students.section_id.section_name}}</td>
+		                                                <td><input type="text" id="id_student_mark" name="student_mark"/></td>
+		                                            </tr>
+		                                            {% endfor %}
+		                                        </tbody>
+		                                    </table>
+		                                </div>
+		                            </div>
+		                        </div>
+		                    </div>
+			                <a href="#" class="btn btn-secondary" style="margin-left: 50%;">Add Mark</a>
+						</div>
+		 			{% endfor %}
+	 			</div>
+	 		</div>
+	 	</form>
+	</div>
+ 
+		          
+		          {% for students in student %}
+		          	{{students.student_id}}
+		          	{{students.class_id.class_name}}
+		          {% endfor %}
+		         	
+{% endif %}
+{% include 'footer.html' %}
+

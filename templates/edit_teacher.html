@@ -1,0 +1,154 @@
+{% include 'header.html' %}
+	{% if request.session.username %}
+		<div class="form_page">
+			<div class="card">
+	            <h5 class="card-header">Edit Teacher</h5>
+	            <div class="card-body">
+					<form id="form" enctype="multipart/form-data" method="Post">{% csrf_token %}
+						<div class="row">
+				                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Staff Name</label>
+				                    {{form.staff_name}}
+				                    {{form.staff_name.errors}}
+				                    <div id="error1"></div>
+				                </div>
+				                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Email</label>
+				                    {{form.email}}
+				                    {{form.email.errors}}
+				                </div>
+				            
+				            	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Mobile Number</label>
+				                   	{{form.mobile}}
+				                    {{form.mobile.errors}}
+				                    <div id="error2"></div>
+				                </div>
+				                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Emergency Number</label>
+				                    {{form.emergency_number}}
+				                </div>
+				            
+				            	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Addhar Number</label>
+				                    {{form.adhar_number}}
+				                </div>
+				                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Degree</label>
+				                    {{form.degree}}
+				                    {{form.degree.errors}}
+				                    <div id="error3"></div>
+				                </div>
+				            
+				            	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Designation</label>
+				                    {{form.designation}}
+				                    {{form.designation.errors}}
+				                    <div id="error4"></div>
+				                </div>
+				                
+				                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Age</label>
+				                    {{form.age}}
+				                    {{form.age.errors}}
+				                    <div id="error5"></div>
+				                </div>
+				            	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Blood Group</label>
+				                    {{form.blood_group}}				                </div>
+				            
+				            	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Present Address</label>
+				                    {{form.present_address}}
+				                </div>
+				                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Permanent Address</label>
+				                    {{form.permanent_address}}
+				                </div>
+				            
+				             	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+				                    <label>Username</label>
+				                   {{form.username}}
+				                   {{form.username.errors}}
+				                </div>
+				            </div>
+		                <div class="row pt-2 pt-sm-5 mt-1">
+		                    <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0">
+		                        
+		                    </div>
+		                    <div class="col-sm-6 pl-0">
+		                        <p class="text-right">
+		                            <input type="submit" class="btn btn-space btn-primary" value="Update Teacher" onclick="register_form()">
+		                            <input type="reset" class="btn btn-space btn-secondary" value="Cancel">
+		                        </p>
+		                    </div>
+		                </div>
+		            </form>
+           		</div>
+         	</div>
+      	</div>         
+	{% endif %}
+<script type="text/javascript">
+	function register_form() {
+		var staff_name = document.getElementById('id_staff_name').value;
+		var degree = document.getElementById('id_degree').value;
+		var designation = document.getElementById('id_designation').value;
+		var age = document.getElementById('id_age').value;
+		var mob_no = document.getElementById('id_mobile').value;
+		if(staff_name=="")
+		{
+			document.getElementById('error1').innerHTML="This Field is Required";
+			document.getElementById('error1').style.color="red";
+		}
+		else
+		{
+			document.getElementById('error1').innerHTML="";
+		}
+		if(mob_no=="")
+		{
+			document.getElementById('error2').innerHTML="This Field is Required";
+			document.getElementById('error2').style.color="red";
+		}
+		else
+		{
+			document.getElementById('error2').innerHTML="";
+		}
+		if(degree=="")
+		{
+			document.getElementById('error3').innerHTML="This Field is Required";
+			document.getElementById('error3').style.color="red";
+		}
+		else
+		{
+			document.getElementById('error3').innerHTML="";
+		}
+		if(designation=="")
+		{
+			document.getElementById('error4').innerHTML="This Field is Required";
+			document.getElementById('error4').style.color="red";
+		}
+		else
+		{
+			document.getElementById('error4').innerHTML="";
+		}
+		if(age=="")
+		{
+			document.getElementById('error5').innerHTML="This Field is Required";
+			document.getElementById('error5').style.color="red";
+		}
+		else
+		{
+			document.getElementById('error5').innerHTML="";
+		}
+	}
+</script>	
+{% include 'footer.html' %}  
+              
+<script type="text/javascript">
+	$.noConflict();
+	jQuery(document).ready(function(){
+	var a={{ request.session.schoolname}};
+	jQuery('#id_school_id option[value='+a+']').attr('selected','selected');
+	jQuery('#id_school_id').hide();
+});
+</script>

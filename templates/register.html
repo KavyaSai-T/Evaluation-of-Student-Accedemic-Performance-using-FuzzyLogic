@@ -1,0 +1,88 @@
+{% include 'base.html' %}
+
+<div class="loginpage">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                
+                <div class="card">
+                    <h2 class="card-header">STUDENT REGISTRATION</h2>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-success">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    <div class="card-body">
+                        <form method="Post" action="">{% csrf_token %}
+						 <div class="form-group">
+                                <div class="input-group mb-3">
+                                    <input type="text" placeholder="Enter Your Name" class="form-control" name="name" required="required">
+                                </div>
+                                
+                            </div>
+							<div class="form-group">
+                                <div class="input-group mb-3">
+                                    <input type="email" placeholder="Enter Your Email" class="form-control" name="email" required="required">
+                                </div>
+                                
+                            </div>
+							 <div class="form-group">
+                                <div class="input-group mb-3">
+                                    <input type="text" placeholder="Enter Your Mobile" class="form-control" name="mobile" required="required">
+                                </div>
+                                
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group mb-3">
+                                    <input type="text" placeholder="Enter Your Register Number" class="form-control" name="reg_no" required="required">
+                                </div>
+                                
+                            </div>
+							<div class="form-group">
+                                <div class="input-group mb-3">
+                                    <input type="text" placeholder="Enter Your Username" class="form-control" name="username" required="required">
+                                </div>
+                                
+                            </div>
+							<div class="form-group">
+                                <div class="input-group mb-3">
+                                    <input type="password" placeholder="Enter Your Password" class="form-control" name="password" required="required">
+                                </div>
+                                
+                            </div>
+							<div class="form-group">
+                                <div class="input-group mb-3">
+                                    <input type="text" placeholder="Enter Your City" class="form-control" name="city" required="required">
+                                </div>
+                                
+                            </div>
+							<div class="form-group">
+                                <div class="input-group mb-3">
+                                    <input type="text" placeholder="Enter Your State" class="form-control" name="state" required="required">
+                                </div>
+                                
+                            </div>
+							<div class="form-group">
+                                <div class="input-group mb-3">
+                                    <input type="text" placeholder="Enter Your Country" class="form-control" name="country" required="required">
+                                </div>
+                                
+                            </div>
+							<div class="form-group">
+                                <div class="input-group mb-3">
+                                    <textarea placeholder="Address" class="form-control" name="address" required="required"></textarea>
+                                </div>
+                                
+                            </div>
+                            <div class="form-group">
+                                <input type="submit"  class="btn btn-primary btn-block" value="Register">
+                            </div>
+                        </form>   
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'footer.html' %}

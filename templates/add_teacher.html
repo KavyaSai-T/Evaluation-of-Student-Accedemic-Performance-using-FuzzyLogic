@@ -1,0 +1,58 @@
+{% load static %}
+{% include 'header.html' %}
+	{% if request.session.username %}
+
+		<div class="form_page">
+			<div class="card">
+	            <h5 class="card-header">Add Teacher</h5>
+	            <div class="card-body">
+	            	 <div class="import_student_details">
+		           
+                    </div>
+					<form id="form" enctype="multipart/form-data" method="Post">{% csrf_token %}
+						{{forms.as_p}}
+		                <div class="row pt-2 pt-sm-5 mt-1">
+		                    <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0">
+		                        
+		                    </div>
+		                    <div class="col-sm-6 pl-0">
+		                        <p class="text-right">
+		                            <input type="submit" class="btn btn-space btn-primary" value="Add Teacher">
+		                            <input type="reset" class="btn btn-space btn-secondary" value="Cancel">
+		                        </p>
+		                    </div>
+		                </div>
+		            </form>
+           		</div>
+         	</div>
+      	</div>         
+	{% endif %}
+
+{% include 'footer.html' %}  
+<script type="text/javascript">
+	$.noConflict();
+	jQuery(document).ready(function(){
+		var a={{ request.session.schoolname}};
+		jQuery('#id_school_id option[value='+a+']').attr('selected','selected');
+		jQuery('#id_school_id').hide();
+	});
+</script>
+<script src="{% static 'assets/vendor/datepicker/jquery.min.js' %}"></script>
+<script src="{% static 'assets/vendor/datepicker/jquery-ui.min.js' %}"></script>
+<script type="text/javascript">
+	$.noConflict();
+	jQuery(document).ready(function() {
+		jQuery("input[id$=id_date_of_birth]").datepicker({ dateFormat: "yy-mm-dd"});
+        jQuery('input[id$=id_date_of_birth]').datepicker({
+            onClose: function(dateText, inst) {
+                jQuery("#date_of_joining").focus();
+            }
+        });
+        jQuery("input[id$=id_date_of_joining]").datepicker({ dateFormat: "yy-mm-dd"});
+        jQuery('input[id$=id_date_of_joining]').datepicker({
+            onClose: function(dateText, inst) {
+                jQuery("#id_adhar_number").focus();
+            }
+        });
+    });
+</script>

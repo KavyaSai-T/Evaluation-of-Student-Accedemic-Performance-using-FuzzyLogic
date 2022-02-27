@@ -1,0 +1,73 @@
+ {% load static %}
+</div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+           
+            <!-- ============================================================== -->
+            <!-- end footer -->
+            <!-- ============================================================== -->
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- end main wrapper -->
+    <!-- ============================================================== -->
+    <!-- Optional JavaScript -->
+    <script src="{% static 'assets/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'assets/vendor/slimscroll/jquery.slimscroll.js' %}"></script>
+    <script src="{% static 'assets/vendor/charts/charts-bundle/Chart.bundle.js' %}"></script>
+     <script src="{% static 'assets/vendor/charts/charts-bundle/chartjs.js' %}"></script>
+      <script src="{% static 'assets/vendor/charts/chartist-bundle/chartist.min.js' %}"></script>
+     <script src="{% static 'assets/vendor/charts/chartist-bundle/Chartistjs.js' %}"></script>
+     <script src="{% static 'assets/vendor/charts/c3charts/c3.min.js' %}"></script>
+     <script src="{% static 'assets/vendor/charts/c3charts/d3-5.4.0.min.js' %}"></script>
+     <script src="{% static 'assets/vendor/charts/c3charts/C3chartjs.js' %}"></script>
+     <script src="{% static 'assets/vendor/charts/morris-bundle/raphael.min.js' %}"></script>
+     <script src="{% static 'assets/vendor/charts/morris-bundle/morris.js' %}"></script>
+     <script src="{% static 'assets/vendor/charts/morris-bundle/Morrisjs.js' %}"></script>
+    <script src="{% static 'assets/libs/js/main-js.js' %}"></script>
+    <script src="{% static 'assets/libs/js/custom.js' %}"></script>
+    <script src="{% static 'assets/vendor/datepicker/jquery.min.js' %}"></script>
+<script src="{% static 'assets/vendor/datepicker/jquery-ui.min.js' %}"></script>
+<script>
+ $.noConflict();
+    jQuery(document).ready(function(){
+    jQuery.ajax({
+        url:'{% url "select_academic_year" %}',
+        success: function (data) {
+            //console.log(data['academic_year'])
+
+        }
+    });
+    jQuery.ajax({
+        url:'{% url "select_school_details" %}',
+        success: function (data) {
+          for(i=0;i< data['school_details']['length'];i++)
+          {
+            var school_name = data['school_details'][i][1];
+            var school_image = data['school_details'][i][12];
+            media = '/media/'+school_image;
+            jQuery('#school_logo_name').append(school_name);
+            if(school_image !="")
+            {
+              img = '<img src='+media+' class="user-avatar-md rounded-circle">';
+            }
+            else
+            {
+              img = '<img src="/media/user_image/user_icon.png" class="user-avatar-md rounded-circle">';
+            }
+            jQuery('#navbarDropdownMenuLink2').append(img);
+            //console.log(data['school_details']);
+          }
+        }
+    });
+     });
+   
+
+</script>
+</body>
+ 
+</html>

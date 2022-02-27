@@ -1,0 +1,190 @@
+{% include 'teacher_header.html' %}
+	{% if request.session.teacher %}
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+			
+      <div class="card">
+
+          <h5 class="card-header">{% for i in a %} {% if forloop.last %} {{i.exams}} {% endif %} {% endfor %} Exam Marks</h5>
+          
+          <div class="pull_right_mark">
+          <form method="post" id="search_stud_mark_details">{% csrf_token %}
+            <div class="row">
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+                  <input type="text" name="reg_no" class="form-control" required="required" id="reg_no" placeholder="Enter Student Register Number">
+                  <div id="error1" class="error"></div>
+              </div>
+                 <div class="col-xl-4 col-lg-4   col-md-12 col-sm-12 col-12 mb-4">
+                    <input type="submit" value="Search" class="btn btn-primary form-control">
+                </div>
+              </div>
+              <input type="hidden" name="exam_id_id" value="{{exam_id}}">
+          </form>
+        </div>
+        
+        <div class="add_stud_mark_details"></div>
+
+        <div class="mark_detail_full">
+        <div class="card-body">
+              <div class="table-responsive">
+                  <table class="table table-striped table-bordered first">
+                      <thead>
+                          <tr>
+                              <th>S.No</th>
+                              <th>Student Reg. No.</th>
+                              <th>Student Name</th>
+                              {% for sub_name in subject_name %}<th> <span class="sub_name1" >{{sub_name.subject_id.subject_name}}</span> </th>
+                              {% endfor %}<th>Option</th>
+                          </tr>
+                      </thead>
+                      <tbody id="content_hide">
+                        {% for b in a %}
+                        {% for rows in exams_name %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{rows.0}}</td>
+                                <td><div id="student_name_{{rows.0}}"></div></td>
+                                {% for sub_name in subject_name %}<td  id="{{rows.0}}_{{sub_name.subject_id_id}}"></td>{% endfor %}
+                                <td><form method="post" id="delete_form">{% csrf_token %}
+                                  <input type="hidden" value="{{b.exam_id}}" name="ex_id">
+                                  <input type="hidden" value="{{rows.0}}" name="stud_id">
+                                  <button type="submit" class="btn btn-danger btn-xs" id="del_id" onclick="return confirm('Are You Sure Want to Delete?')"><i class="fas fa-trash"></i></button> </form></td>
+                            </tr>
+                               {% empty %}
+                              <tr>
+                                  <td colspan="8" class="text-center bg-primary">No Marks for this Class</td>
+                              </tr>
+                        {% endfor %}
+                        {% endfor %}
+                      </tbody>
+                  </table>
+              </div>
+
+          </div>
+      </div>
+ 
+  </div>
+  <form method="post" id="post-form">{% csrf_token %}
+    <input type="hidden" name="class_id"  id="cls_id" value="{{class_id}}">
+    <input type="hidden" name="section_id"  id="sec_id" value="{{section_id}}">
+    <input type="hidden" name="exam_id"  id="ex_id" value="{{exam_id}}">
+  </form>
+  
+<div id="mark_table">
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered first">
+        <thead>
+            <tr>
+                <th>Student Reg. No.</th>
+                <th>Student Name</th>
+                {% for sub_name in subject_name %}<th> <span class="sub_name1" >{{sub_name.subject_id.subject_name}}</span> </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody id="content_hide">
+              <tr id="no_results">
+                  <td id="student_reg_number"></td>
+                  <td id="student_name"></td>
+                  {% for sub_name in subject_name %}<td  id="subject_id_{{sub_name.subject_id_id}}"></td>{% endfor %}
+              </tr>
+        </tbody>
+    </table>
+  </div>
+</div>
+</div>
+{% if exams_name.has_other_pages %}
+      <ul class="pagination" style="float: right;">
+        {% if exams_name.has_previous %}
+          <li><a class="page-link" href="?page={{ exams_name.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+          <li class="disabled page-item disabled"> <a class="page-link" href="#" tabindex="-1"><span>&laquo;</span></a></li>
+        {% endif %}
+        {% for i in exams_name.paginator.page_range %}
+          {% if exams_name.number == i %}
+            <li class="active page-item active"><a class="page-link" href="#"><span>{{ i }} <span class="sr-only">(current)</span></span></a></li>
+          {% else %}
+            <li class="page-item"><a  class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if exams_name.has_next %}
+          <li  class="page-item"><a class="page-link" href="?page={{ exams_name.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li class="disabled page-item disabled"><a class="page-link" href="#"><span>&raquo;</span></a></li>
+        {% endif %}
+      </ul>
+    {% endif %}
+	{% endif %}
+{% include 'footer.html' %}
+<script type="text/javascript">
+      $.noConflict();
+      jQuery(document).ready(function(){
+        jQuery('#mark_table').hide();
+        jQuery.ajax({
+        type:'POST',
+        url:'{% url "mark_ajax" %}',
+        data: jQuery("#post-form").serialize(),
+        success: function (data) {
+            if(data['row']!="")
+            {
+              jQuery('#show').show();
+              for(i=0;i<data['row']['length'];i++)
+              {
+
+                stud_id = data['row'][i][0];
+                mark = data['row'][i][1];
+                student_name = data['row'][i][3];
+                sub_id = data['row'][i][2];
+
+                jQuery('#'+ stud_id + "_" + sub_id).append(mark);
+                jQuery('#student_name_'+stud_id).html(student_name);
+               
+              }
+              //console.log(data['row'])
+            }
+            else
+            {
+              jQuery('#show').hide();
+              jQuery('.add_stud_mark_details').html('<h3 style="text-align:center;margin:30px 0;">No Marks for this Exam <a href="{% url "manage_students_marks"  %}" class="btn btn-secondary">Add Mark</a></h3>')
+            }
+            
+
+          }
+      });
+
+      jQuery('#search_stud_mark_details').on('submit', function(event) {
+        event.preventDefault();
+        jQuery.ajax({
+          type:'POST',
+          url:'{% url "ajax_search_particular_student_mark" %}',
+          data: jQuery("#search_stud_mark_details").serialize(),
+          success: function (data) {
+            jQuery('.mark_detail_full').hide();
+            jQuery('#mark_table').show();
+            jQuery('.add_stud_mark_details').html('');
+              if(data['Marks']['length'] > 0)
+              {
+                for(i=0;i<data['Marks']['length'];i++)
+                {
+
+                  student_name = data['Marks'][i][1];
+                  reg_no  = data['Marks'][i][0];
+                  mark = data['Marks'][i][2];
+                  subject_id = data['Marks'][i][3];
+                  jQuery('#student_reg_number').html(student_name);
+                  jQuery('#student_name').html(reg_no);
+                  jQuery('#subject_id_'+subject_id).html(mark);
+
+                }
+                console.log(data['Marks']);
+              }
+              else
+              {
+                jQuery('.add_stud_mark_details').html('<h3 style="text-align:center;margin:30px 0;">No Marks for this Register Number </h3>');
+                jQuery('#mark_table').hide();
+              }
+
+          }
+      });
+    });
+  });
+
+</script>                

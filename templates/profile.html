@@ -1,0 +1,68 @@
+{% include 'student_header.html' %}
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+			
+      <div class="card">
+
+          <h5 class="card-header">Profile</h5>
+          
+			<div class="row">
+				{% for i in detail %}
+				<div class="col-md-4">
+					<img src="/media/{{i.Photo}}" class="img-circle" style="width:70%;border-radius:50%;margin:20px;">
+				</div>
+				<div class="col-md-2" style="margin-top:20px;">
+				
+							<b><p> Student Name</p>
+							<p>  Register Number </p>
+							<p> Admission Number </p>
+							<p>  Date of Admission  </p>
+							<p> Date of Birth  </p>
+							<p>  Adhar Number  </p>
+							<p> Father Name </p>
+							<p>  Mother Name  </p>
+							<p>   Guardian Name   </p>
+							<p>  Contact Number   </p>
+							<p>  No of Backlogs </p>
+							<p>  Present Address  </p>
+							<p>   Permanent Address</p>
+							<p>  Religion   </p>
+							<p>  Caste </p>
+							<p>  Blood Group    </p>
+							<p> Father Occupation </p><p> Mother Occupation </p></b>
+						
+							
+						</div>
+				
+				<div class="col-md-6" style="margin-top:20px;padding-bottom:30px;">
+					<b><p> : {{i.student_name}}</p>
+							<p>  : {{i.register_number}} </p>
+							<p>: {{i.admission_number}} </p>
+							<p>  : {{i.date_of_admission}}   </p>
+							<p>  : {{i.date_of_birth}}   </p>
+							<p>  : {{i.adhar_number}}   </p>
+							<p>  : {{i.father_name}}   </p>
+							<p>  : {{i.mother_name}}   </p>
+							<p>  : {{i.guardian_name}}   </p>
+							<p>  : {{i.emergency_number}}   </p>
+							<p>  : {{i.no_of_backlogs}}   </p>
+							<p>  : {{i.present_address}}   </p>
+							<p>  : {{i.permanent_address}}   </p>
+							<p>  : {{i.religion}}   </p>
+							<p>  : {{i.caste}}   </p>
+							<p>  : {{i.blood_group}}   </p>
+							<p>  : {{i.father_occupation}}   </p>
+							<p>  : {{i.mother_occupation}}   </p></b>
+				</div>
+				{% endfor %}
+			</div>
+        
+       
+
+ 
+  </div>
+
+</div>
+
+{% include 'footer.html' %}
+
+</script>                

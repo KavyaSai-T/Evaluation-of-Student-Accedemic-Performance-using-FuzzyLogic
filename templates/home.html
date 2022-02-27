@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+{% load static %}
+
+<html>
+	<head>
+		<title>SAPE</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{% static 'js/assets/css/main.css' %}" />
+	</head>
+	<body>
+<style>#menu
+{
+background: orange !important;
+}
+#menu > ul.links > li > a:not(.button)
+{
+color:#000;
+}
+</style>
+		<!-- Header -->
+			<header id="header" class="alt">
+				<div class="logo"><a href="{% url 'landing_page' %}">SAPE</a></div>
+				<a href="#menu">Menu</a>
+			</header>
+
+		<!-- Nav -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="{% url 'landing_page' %}">Home</a></li>
+						<li><a href="{% url 'adminlogin' %}">Admin Login</a></li>
+							<li><a href="{% url 'teacher_login' %}">Staff Login</a></li>
+					<li><a href="{% url 'register' %}">Student</a></li>	
+				</ul>
+			</nav>
+
+		<!-- Banner -->
+			<section class="banner full">
+				<article>
+					<img src="{% static 'images/1.jpg' %}" alt="" />
+					<div class="inner">
+						<header>
+							<h2>SAPE</h2><br>
+							<p>STUDENT ACADEMIC PERFORMANCE EVALUATION<a href="https://templated.co"></a></p><br>
+							<p>This system allows students to evaluate their academic performance
+								based on their attendance and marks </p>
+						</header>
+					</div>
+				</article>
+				<article>
+					<img src="{% static 'images/2.jpg' %}" alt="" />
+					<div class="inner">
+					</div>
+				</article>
+				<article>
+					<img src="{% static 'images/3.jpg' %}"  alt="" />
+					<div class="inner">
+					</div>
+				</article>
+				<article>
+					<img src="{% static 'images/4.jpg' %}"  alt="" />
+					<div class="inner">
+					</div>
+				</article>
+				<article>
+					<img src="{% static 'images/1.jpg' %}"  alt="" />
+					<div class="inner">
+					</div>
+				</article>
+			</section>
+
+
+		<!-- Scripts -->
+			<script src="{% static 'js/assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'js/assets/js/jquery.scrollex.min.js' %}"></script>
+			<script src="{% static 'js/assets/js/skel.min.js' %}"></script>
+			<script src="{% static 'js/assets/js/util.js' %}"></script>
+			<script src="{% static 'js/assets/js/main.js' %}"></script>
+
+	</body>
+</html>

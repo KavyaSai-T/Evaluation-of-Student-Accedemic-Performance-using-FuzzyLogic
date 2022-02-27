@@ -1,0 +1,8 @@
+{% include 'header.html' %}
+		{% if request.session.username %}
+			<marquee><h2 style="text-transform:uppercase;padding-top:100px;">WELCOME {{request.session.username}}</h2></marquee>
+			
+		{% endif %}
+	{% include 'footer.html' %}  
+              
+                   

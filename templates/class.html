@@ -1,0 +1,75 @@
+{% include 'header.html' %}
+	{% if request.session.username %}
+		 <div class="row">
+                <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header">Add Attendance</h5>
+                        <div class="card-body">
+                            {% if messages %}
+                                {% for msg in messages %}
+                                    <div class="alert alert-success">{{msg}}</div>
+                                {% endfor %}
+                            {% endif %}
+                            <form id="post-form" method="Post">{% csrf_token %}
+									<div class="form-group">
+										<label>Total Days</label>
+										<input type="text" name="total_days" class="form-control" required="required" id="total_days">
+										
+									</div>
+									<div class="form-group">
+										<label>No of Days Present</label>
+										<input type="text" name="no_of_days_present" class="form-control" required="required" onblur="abs()" id="no_of_days_present">
+										
+									</div>
+									<div class="form-group">
+										<label>No of Days Absent</label>
+										<input type="text" name="no_of_days_absent" id="no_of_days_absent"  class="form-control" required="required" onblur="calculate()">
+										
+									</div>
+									<div class="form-group">
+										<label>Percentage</label>
+										<input type="text" name="percentage" class="form-control" required="required" id="percentage" onfocus="calculate()">
+										
+									</div>
+								<input type="hidden" name="exam_id" value="{{request.GET.exam_id}}">
+								<input type="hidden" name="reg_no" value="{{request.GET.reg}}">
+								
+                                <div class="row">
+                                    <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0"></div>
+                                    <div class="col-sm-6 pl-0">
+                                        <p class="text-right">
+                                            <button  id="add_subject_form" class="btn btn-space btn-primary">Add Attendance</button>  
+                                            <button class="btn btn-space btn-secondary">Cancel</button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="posts">
+                </div>
+                
+            </div> 
+
+	{% endif %}
+<script>
+	function calculate()
+	{
+		a= document.getElementById('no_of_days_present').value;
+		b= document.getElementById('total_days').value;
+		c = a/b;
+		absent = b-a;
+		document.getElementById('percentage').value = absent;
+		tot = c*100;
+		document.getElementById('percentage').value = Math.round(tot);
+	}
+	function abs()
+	{
+		a= document.getElementById('no_of_days_present').value;
+		b= document.getElementById('total_days').value;
+		absent = b-a;
+		document.getElementById('no_of_days_absent').value = absent;
+	}
+</script>
+{% include 'footer.html' %}

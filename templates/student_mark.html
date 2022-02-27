@@ -1,0 +1,241 @@
+{% include 'header.html' %}
+	{% if request.session.username %}
+
+		<div class="form_page">
+			<div class="card">
+	            <h5 class="card-header">Search Student</h5>
+	            <div class="card-body">
+					<form id="search_form" method="Post">{% csrf_token %}
+						<div class="row">
+			                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+			                    <label>Academic Year</label>
+			                    <select name="academic_year" class="form-control" required="required" id="academic_year_id">
+                              <option value="">Select</option>
+                              {% for year in years%}
+                                <option value="{{year.academic_year}}">{{year.academic_year}}</option>
+                              {% endfor %}
+
+                          </select>
+                          <div id="error1" class="error"></div>
+			                </div>
+			            
+			            	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+			                    <label>Degree</label>
+			                    <select class="form-control" name="class_id" required="required" id="id_class_id"> 
+			                    	<option value="">Select</option>
+			                    	<option value="">No Degree</option>
+			                    </select>
+                          <div id="error2" class="error"></div>
+			                   	
+			                </div>
+			                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+			                    <label>Department</label>
+			                    <select class="form-control" name="section_id" required="required" id="id_section_id">
+			                    	<option value="">Select</option>
+			                    	<option value="">No Department</option>
+			                    </select>
+                          <div id="error3" class="error"></div>
+			                    
+			                </div>
+
+			                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+			                    <label>Exam</label>
+			                    <select class="form-control" name="exam_id" required="required" id="id_exam_id">
+			                    	<option value="">Select</option>
+			                    	<option value="">No Exam</option>
+			                    </select>
+                          <div id="error4" class="error"></div>
+			                </div>
+			            
+			                    <input type="hidden" name="student_reg_no" class="form-control" id="id_student_id" placeholder="Enter Register Number (optional)">
+			                
+			            </div>
+                        <p class="text-right">
+                            <input type="button" class="btn btn-space btn-primary" value="Search" id="mark_submit">
+                            <input type="reset" class="btn btn-space btn-secondary" value="Reset">
+                        </p>
+		            </form>
+           		</div>
+	        </div>
+	    </div> 
+
+		<div id="form_page">
+            <div class="card">
+                <h5 class="card-header">Students Detail</h5>
+                <div class="card-body">
+				<div id="excel" style="margin-bottom:20px;"></div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered first">
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Name</th>
+                                    <th>Register Number</th>
+									 <th>Option</th>
+                                </tr>
+                            </thead>
+                            <tbody id="mark_details_exam">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+	{% endif %}
+{% include 'footer.html' %} 
+<script type="text/javascript">
+	 $.noConflict();
+    jQuery(document).ready(function(){
+    jQuery('#form_page').hide();
+    jQuery('#show_no_data').hide();
+    jQuery('#academic_year_id').on('blur', function() {
+        jQuery.ajax({
+        type:'POST',
+        url:'{% url "ajax_exam_class_search" %}',
+        data: jQuery("#search_form").serialize(),
+        success: function (data) {
+        	var op_val="";
+
+            for(i=0;i<data['class_name']['length'];i++)
+            {
+
+               class_id = data['class_name'][i][0];
+               cls_name = data['class_name'][i][1];
+               op_val += '<option value=' + class_id + '>' + cls_name + '</option>';
+               
+
+            }
+            sec = '<option>Select</option>';
+            jQuery('#id_class_id').html(sec+op_val);
+        	console.log(data['class_name']);
+
+            }
+   		});
+    }); 
+     jQuery('#id_class_id').on('change', function() {
+    jQuery.ajax({
+        type:'POST',
+        url:'{% url "select_section" %}',
+        data: jQuery("#search_form").serialize(),
+        success: function (data) {
+            var op_val="";
+
+            for(i=0;i<data['rowval']['length'];i++)
+            {
+
+               section_id = data['rowval'][i][4];
+               section_name = data['rowval'][i][5];
+               op_val += '<option value=' + section_id + '>' + section_name + '</option>';
+               
+
+            }
+            sec = '<option>Select</option>';
+            jQuery('#id_section_id').html(sec+op_val);
+             console.log(data['rowval']);
+           
+        }
+    });
+     }); 
+     jQuery('#id_section_id').on('change', function() {
+    jQuery.ajax({
+        type:'POST',
+        url:'{% url "select_school_exam" %}',
+        data: jQuery("#search_form").serialize(),
+        success: function (data) {
+            
+            var op_val="";
+
+            for(i=0;i<data['exam_name']['length'];i++)
+            {
+
+               exam_id = data['exam_name'][i][2];
+               ex_name = data['exam_name'][i][3];
+               op_val += '<option value=' + exam_id + '>' + ex_name + '</option>';
+               
+
+            }
+            sec = '<option>Select</option>';
+            jQuery('#id_exam_id').html(sec+op_val);
+             console.log(data['exam_name']);
+           
+        }
+    });
+     }); 
+        jQuery('#mark_submit').on('click', function(event) {
+      	event.preventDefault();
+        var a = jQuery('#id_class_id').val();
+        var b = jQuery('#id_section_id').val();
+        var c = jQuery('#id_exam_id').val();
+        var d = jQuery('#academic_year_id').val();
+        if(a=="")
+        {
+          jQuery('#error2').html("This Field is Required");
+        }
+        else
+        {
+           jQuery('#error2').html("");
+        }
+
+        if(b=="")
+        {
+          jQuery('#error3').html("This Field is Required");
+        }
+        else
+        {
+           jQuery('#error3').html("");
+        }
+
+        if(c=="")
+        {
+          jQuery('#error4').html("This Field is Required");
+        }
+        else
+        {
+           jQuery('#error4').html("");
+        }
+
+        if(d=="")
+        {
+          jQuery('#error1').html("This Field is Required");
+        }
+
+        else
+        {
+           jQuery('#error1').html("");
+        }
+    	jQuery.ajax({
+        type:'POST',
+        url:'{% url "search_student_marks_ajax" %}',
+        data: jQuery("#search_form").serialize(),
+        success: function (data) {
+          table = ""
+		  if (data['mark_details']['length']!=0) {
+        	for(i=0;i<data['mark_details']['length'];i++)
+        	{
+
+            var student_reg_no = data['mark_details'][i][1];
+            var name = data['mark_details'][i][0];
+			var cls_id = data['mark_details'][i][3];
+			var sec_id = data['mark_details'][i][4];
+			var exam_id = data['mark_details'][i][5];
+            table +='<tr><td>'+(i+1)+'</td><td id="stud_reg">'+name+'</td><td>'+student_reg_no+'</td><td><a href="{% url "admin_class" %}">View Detail</a></td></tr>';
+            jQuery('#form_page').show();
+            jQuery('#mark_details_exam').html(table);
+            console.log(data['mark_details']);
+			console.log(cls_id);
+       		}
+			txt = '<a href="{% url "exportcsv" %}?cls_id='+cls_id+'&sec_id='+sec_id+'" class="btn btn-secondary">Download Student Detail</a>'
+			jQuery('#excel').html(txt);
+          }
+          if(data['mark_details']['length']==0) 
+          {
+            var table ='<td colspan="8" class="text-center bg-primary">No Students for this Class</td>';
+            jQuery('#form_page').show();
+            jQuery('#mark_details_exam').html(table);
+          } 
+           
+        }
+    });
+     }); 
+});
+</script>

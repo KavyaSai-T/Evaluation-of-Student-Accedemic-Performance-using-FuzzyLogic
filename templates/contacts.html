@@ -1,0 +1,31 @@
+{% load static %}
+{% include 'header.html' %}
+<script src="{% static 'assets/libs/js/custom.js' %}"></script>
+<script src="{% static 'assets/libs/js/jquery.formset.js' %}"></script>
+<div>
+    <form method="post">
+        {% csrf_token %}
+          <fieldset>
+          <legend>Contact Details</legend>
+
+          <div>
+            {{ contact_form.management_form }}
+            {% for contact in contact_form %}
+             <div class="link-formset">
+              {{ contact.as_p }}
+            </div>
+            <input type="submit">
+            {% endfor %}
+
+          </div>
+
+
+        </fieldset>
+
+     <script>
+    $('.link-formset').formset({
+        addText: 'Add Contact',
+        deleteText: 'Remove Contact'
+    });
+</script>
+{% include 'footer.html' %}

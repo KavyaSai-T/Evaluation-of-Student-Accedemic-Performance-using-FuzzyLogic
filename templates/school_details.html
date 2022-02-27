@@ -1,0 +1,87 @@
+{% include 'teacher_header.html' %}
+	{% if request.session.teacher %}
+		<div class="form_page">
+			<div class="card">
+	            <h5 class="card-header">Search Student</h5>
+	            <div class="card-body">
+					<form id="search_form" method="Post">{% csrf_token %}
+						<div class="row">
+			                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+			                    <label>Academic Year</label>
+                          <select name="academic_year" class="form-control" required="required" id="academic_year_id">
+                              <option value="">Select</option>
+                              {% for year in years%}
+                                <option value="{{year.academic_year}}">{{year.academic_year}}</option>
+                              {% endfor %}
+
+                          </select>
+                          <div id="error1" class="error"></div>
+			                </div>
+			            
+			            	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+			                    <label>Class</label>
+			                    <select class="form-control" name="class_id" required="required" id="id_class_id"> 
+			                    	<option value="">Select</option>
+			                    	<option value="">No Class</option>
+			                    </select>
+                          <div id="error2" class="error"></div>
+			                   	
+			                </div>
+			                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+			                    <label>Section</label>
+			                    <select class="form-control" name="section_id" required="required" id="id_section_id">
+			                    	<option value="">Select</option>
+			                    	<option value="">No Section</option>
+			                    </select>
+                          <div id="error3" class="error"></div>
+			                    
+			                </div>
+
+			                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+			                    <label>Exam</label>
+			                    <select class="form-control" name="exam_id" required="required" id="id_exam_id">
+			                    	<option value="">Select</option>
+			                    	<option value="">No Exam</option>
+			                    </select>
+                          <div id="error4" class="error"></div>
+			                </div>
+			            
+			            	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+			                    <label>Student Register No </label>
+			                    <input type="text" name="student_reg_no" class="form-control" id="id_student_id" placeholder="Enter Register Number (optional)">
+			                </div>
+			            </div>
+                        <p class="text-right">
+                            <input type="button" class="btn btn-space btn-primary" value="Search" id="mark_submit">
+                            <input type="reset" class="btn btn-space btn-secondary" value="Reset">
+                        </p>
+		            </form>
+           		</div>
+	        </div>
+	    </div> 
+
+		<div id="form_page">
+            <div class="card">
+                <h5 class="card-header">Students Mark</h5>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered first">
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Name</th>
+                                    <th>Register Number</th>
+                                    <th>Total Mark</th>
+                                    <th>Percentage</th>
+                                    <th>Option</th>
+                                </tr>
+                            </thead>
+                            <tbody id="mark_details_exam">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+	{% endif %}
+{% include 'footer.html' %} 

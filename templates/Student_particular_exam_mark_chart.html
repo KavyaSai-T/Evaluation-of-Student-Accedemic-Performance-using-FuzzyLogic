@@ -1,0 +1,122 @@
+{% include 'student_header.html' %}
+	{% if request.session.student %}
+		<form method="post" id="get_exam_name">{% csrf_token %}
+		{% for x in exam_id %}
+			{% if forloop.last %}
+				<input type="hidden" value="{{x.class_id_id}}" name="cls_id">
+				<input type="hidden" value="{{x.section_id_id}}" name="sec_id">
+				<input type="hidden" value="{{pk}}" name="student_id">
+			{% endif %}
+		{% endfor %}
+		</form>
+		<div id="subject_mark">
+		<div class="card">
+		    <h5 class="card-header">Student's Exam Wise Mark Comparison Chart </h5>
+		    <div class="card-body">
+				<div id="container"></div>
+			</div>
+		</div>
+		</div>
+	{% endif %}
+{% include 'footer.html' %}
+<script src="https://code.highcharts.com/highcharts.src.js"></script>
+<script>
+	//$.noConflict();
+    jQuery(document).ready(function(){
+
+        jQuery.ajax({
+        type:'POST',
+        url:'{% url "get_exam_name" %}',
+        data: jQuery("#get_exam_name").serializeArray(),
+        success: function (data) {
+        if(data['row']!="") {
+        	var student = [];
+        	var color_value = ["#e83e8c","#6610f2","#fd7e14","#28a745","#007bff","#6c757d","#17a2b8"];
+			for(i=0;i<data['row']['length'];i++){
+				mark = data['row'][i][0];
+				exam_name = data['row'][i][3];
+				student[i] = {};
+				student[i].name = exam_name;
+				student[i].data = mark;
+				student[i].color = "#e83e8c";
+				student.push(student[i]);
+			}
+            student.pop();
+
+            var exam ="";
+            var data1 =0;
+
+
+            var result = [];
+			$.each(student, function (i, e) {
+			    var matchingItems = $.grep(result, function (item) {
+			       return item.name === e.name ;
+			    });
+			    if (matchingItems.length === 0){
+			        result.push(e);
+			    }
+			});
+
+            var new_student =[];
+            var name ="";
+			$.each(result, function(res_i, res_e){
+				$.each(student, function (i, e) {
+					if(e.name == res_e.name){
+						var name = student[i].name;
+						if(data1==undefined || data1=="")
+							data1 = student[i].data;
+						else
+							data1 = data1 +','+ student[i].data +',';
+						
+					}
+				});
+				new_student[res_i] = {};
+				new_student[res_i].name = result[res_i].name;
+				var arr = data1.split(",");
+				array = arr.filter(Boolean);
+				mark_val = JSON.parse("[" + array + "]"); 
+            	new_student[res_i].data = mark_val;
+            	new_student[res_i].color = "#e83e8c";
+            	new_student.push(new_student[res_i]);
+				var data1=0;
+			});
+
+          
+			new_student.pop();
+
+			var len = new_student.length;
+
+			 	Highcharts.chart('container', {
+			      chart: {
+			          type: 'column'
+			      },
+			      title: {
+			          text: ''
+			      },
+			      xAxis: {
+			          categories: [
+			            {% for entry in row %}'{{ entry.1 }}'{% if not forloop.last %}, {% endif %}{% endfor %}
+			          ]
+			      },
+			    series:[{% with a=len_exam %} {% for i in "x"|ljust:a %} {
+
+			    	name: new_student[ {{ forloop.counter0 }}].name,
+			    	data : new_student[ {{ forloop.counter0 }}].data,
+			    	color : color_value[{{ forloop.counter0 }}]
+
+			    }{% if not forloop.last %}, {% endif %}{% endfor %}{% endwith %}
+			   
+
+		        	]
+
+		 		});
+	 		}
+	 		else
+            {
+            	var mark = '<a href="{% url 'manage_students_marks' %}" class="btn btn-secondary">Add Mark Here</a>'
+            	jQuery('#subject_mark').html("<h3 style='text-align:center;margin-top:150px '>No Marks Added for the Student " + mark + "</h3>");
+            }
+	 	}
+    });
+ });
+</script>
